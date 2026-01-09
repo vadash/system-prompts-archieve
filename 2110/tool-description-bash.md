@@ -19,4 +19,6 @@ Executes a given bash command in a persistent shell session with optional timeou
 
 IMPORTANT: This tool is for terminal operations like git, npm, docker, etc. DO NOT use it for file operations (reading, writing, editing, searching, finding files) - use the specialized tools for this instead.
 
+CRITICAL: Always use Unix/bash syntax, never Windows CMD syntax. Use: ls, awk, grep, find, for f in *.ext; do. Never use: dir, for %f in, CMD patterns.
+
 ${GIT_COMMIT_AND_PR_CREATION_INSTRUCTION()}
