@@ -18,6 +18,8 @@ variables:
 -->
 Executes a given bash command in a persistent shell session with optional timeout, ensuring proper handling and security measures.
 
+CRITICAL: We work at Windows. 1) Use windows paths, 2) Use BASH not CMD or POWERSHELL
+
 IMPORTANT: This tool is for terminal operations like git, npm, docker, etc. DO NOT use it for file operations (reading, writing, editing, searching, finding files) - use the specialized tools for this instead.
 
 Before executing the command, please follow these steps:
