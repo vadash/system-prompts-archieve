@@ -7,6 +7,7 @@ ccVersion: 2.0.60
 variables:
   - WEB_CONTENT
   - USER_PROMPT
+  - IS_TRUSTED_DOMAIN
 -->
 
 Web page content:

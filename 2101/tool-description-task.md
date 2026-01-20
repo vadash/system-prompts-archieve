@@ -7,6 +7,9 @@ variables:
   - AGENT_TYPE_REGISTRY_STRING
   - READ_TOOL
   - GLOB_TOOL
+  - GET_SUBSCRIPTION_TYPE_FN
+  - BASH_TOOL
+  - TASK_TOOL_OBJECT
   - WRITE_TOOL
 -->
 Launch a new agent to handle complex, multi-step tasks autonomously.  Call multiple Task tools in one message to maximize performance by running them in parallel.
