@@ -10,7 +10,8 @@ variables:
 -->
 Reads a text file/image from the local filesystem.
 Usage:
-- Reads up to ${DEFAULT_READ_LINES} lines froam start of file; optionally specify line offset and limit for long files
+- DO NOT use Read on directories - it will fail with EISDIR error. Use ${BASH_TOOL_NAME}("ls path") to list directory contents first.
+- Reads up to ${DEFAULT_READ_LINES} lines from start of file; optionally specify line offset and limit for long files
 - Lines longer than ${MAX_LINE_LENGTH} chars are trunc
 - Results use cat -n format; line nums start at 1
 - Images (PNG, JPG, etc) are supported and are presented visually as Claude is multi-modal; when asked about screenshots read them with this tool

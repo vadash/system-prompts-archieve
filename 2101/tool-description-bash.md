@@ -21,6 +21,6 @@ IMPORTANT: This tool is for terminal operations like git, npm, docker, etc. DO N
 
 CRITICAL: Always use Unix/bash syntax, even on Windows. Use: ls, rm, mv, cat, awk, grep, find, for f in *.ext; do. Never use: dir, del, ren, for %f in, or CMD patterns.
 
-Note for Windows paths: Escape backslashes properly or use forward slashes (e.g., "C:/projects/file.txt" or "C:\\\\projects\\\\file.txt").
+Note for Windows paths: Escape backslashes properly or use forward slashes (e.g., "C:/projects/file.txt" or "C:\\\\projects\\\\file.txt"). When using quotes around Windows paths, ALWAYS use single quotes to avoid escaping issues (e.g., ls 'C:\path\to\dir').
 
 ${GIT_COMMIT_AND_PR_CREATION_INSTRUCTION()}
