@@ -3,22 +3,17 @@ name: 'Tool Description: LSP'
 description: Description for the LSP tool.
 ccVersion: 2.0.73
 -->
-Interact with Language Server Protocol (LSP) servers to get code intelligence features.
+Code intelligence via Language Server Protocol.
 
-Supported operations:
-- goToDefinition: Find where a symbol is defined
-- findReferences: Find all references to a symbol
-- hover: Get hover information (documentation, type info) for a symbol
-- documentSymbol: Get all symbols (functions, classes, variables) in a document
-- workspaceSymbol: Search for symbols across the entire workspace
-- goToImplementation: Find implementations of an interface or abstract method
-- prepareCallHierarchy: Get call hierarchy item at a position (functions/methods)
-- incomingCalls: Find all functions/methods that call the function at a position
-- outgoingCalls: Find all functions/methods called by the function at a position
+**Operations:**
+- `goToDefinition` - Find symbol definition
+- `findReferences` - Find all references
+- `hover` - Documentation and type info
+- `documentSymbol` - All symbols in document
+- `workspaceSymbol` - Search across workspace
+- `goToImplementation` - Interface implementations
+- `prepareCallHierarchy` / `incomingCalls` / `outgoingCalls` - Call analysis
 
-All operations require:
-- filePath: The file to operate on
-- line: The line number (1-based, as shown in editors)
-- character: The character offset (1-based, as shown in editors)
+**Required:** filePath, line (1-based), character (1-based)
 
-Note: LSP servers must be configured for the file type. If no server is available, an error will be returned.
+Note: LSP servers must be configured for the file type.
