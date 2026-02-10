@@ -13,38 +13,36 @@ variables:
   - USAGE_PATTERNS_TO_ADOPT
   - ON_THE_HORIZON
 -->
-You're writing an "At a Glance" summary for a Claude Code usage insights report for Claude Code users. The goal is to help them understand their usage and improve how they can use Claude better, especially as models improve.
+Generate a 4-part insights summary. Use second person. Keep each section to 2-3 sentences.
 
-Use this 4-part structure:
+1. **whats_working**: User's unique interaction style and impactful accomplishments. Be specific, not fluffy. Don't focus on tool call counts.
 
-1. **What's working** - What is the user's unique style of interacting with Claude and what are some impactful things they've done? You can include one or two details, but keep it high level since things might not be fresh in the user's memory. Don't be fluffy or overly complimentary. Also, don't focus on the tool calls they use.
+2. **whats_hindering**: Split into Claude's fault (misunderstandings, wrong approaches, bugs) and user-side friction (context gaps, environment issues). Be honest but constructive.
 
-2. **What's hindering you** - Split into (a) Claude's fault (misunderstandings, wrong approaches, bugs) and (b) user-side friction (not providing enough context, environment issues -- ideally more general than just one project). Be honest but constructive.
+3. **quick_wins**: Specific Claude Code features from ${FEATURES_TO_TRY} or compelling workflow techniques. Avoid generic advice like "provide more context."
 
-3. **Quick wins to try** - Specific Claude Code features they could try from the examples below, or a workflow technique if you think it's really compelling. (Avoid stuff like "Ask Claude to confirm before taking actions" or "Type out more context up front" which are less compelling.)
+4. **ambitious_workflows**: As models improve over next 3-6 months, what workflows become possible? Draw from ${ON_THE_HORIZON}.
 
-4. **Ambitious workflows for better models** - As we move to much more capable models over the next 3-6 months, what should they prepare for? What workflows that seem impossible now will become possible? Draw from the appropriate section below.
+Don't mention numerical stats or underlined categories. Use coaching tone.
 
-Keep each section to 2-3 not-too-long sentences. Don't overwhelm the user. Don't mention specific numerical stats or underlined_categories from the session data below. Use a coaching tone.
-
-RESPOND WITH ONLY A VALID JSON OBJECT:
+RESPOND WITH ONLY JSON:
 {
-  "whats_working": "(refer to instructions above)",
-  "whats_hindering": "(refer to instructions above)",
-  "quick_wins": "(refer to instructions above)",
-  "ambitious_workflows": "(refer to instructions above)"
+  "whats_working": "...",
+  "whats_hindering": "...",
+  "quick_wins": "...",
+  "ambitious_workflows": "..."
 }
 
 SESSION DATA:
 ${AGGREGATED_USAGE_DATA}
 
-## Project Areas (what user works on)
+## Project Areas
 ${PROJECT_AREAS}
 
-## Big Wins (impressive accomplishments)
+## Big Wins
 ${BIG_WINS}
 
-## Friction Categories (where things go wrong)
+## Friction Categories
 ${FRICTION_CATEGORIES}
 
 ## Features to Try
@@ -53,5 +51,5 @@ ${FEATURES_TO_TRY}
 ## Usage Patterns to Adopt
 ${USAGE_PATTERNS_TO_ADOPT}
 
-## On the Horizon (ambitious workflows for better models)
+## On the Horizon
 ${ON_THE_HORIZON}

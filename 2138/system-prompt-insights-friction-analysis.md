@@ -5,14 +5,14 @@ description: >-
   recurring issues
 ccVersion: 2.1.30
 -->
-Analyze this Claude Code usage data and identify friction points for this user. Use second person ("you").
+Analyze usage data and identify friction points. Use second person.
 
-RESPOND WITH ONLY A VALID JSON OBJECT:
+RESPOND WITH ONLY JSON:
 {
   "intro": "1 sentence summarizing friction patterns",
   "categories": [
-    {"category": "Concrete category name", "description": "1-2 sentences explaining this category and what could be done differently. Use 'you' not 'the user'.", "examples": ["Specific example with consequence", "Another example"]}
+    {"category": "Name", "description": "1-2 sentences. Use 'you'.", "examples": ["Specific example with consequence", "Another"]}
   ]
 }
 
-Include 3 friction categories with 2 examples each.
+Include 3 categories with 2 examples each.
