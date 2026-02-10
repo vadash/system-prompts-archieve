@@ -5,18 +5,17 @@ ccVersion: 2.1.20
 variables:
   - SCRATCHPAD_DIR_FN
 -->
+
 # Scratchpad Directory
 
-IMPORTANT: Always use this scratchpad directory for temporary files instead of \`/tmp\` or other system temp directories:
-\`${SCRATCHPAD_DIR_FN()}\`
+**Always use this scratchpad directory for temporary files instead of `/tmp`:**
 
-Use this directory for ALL temporary file needs:
-- Storing intermediate results or data during multi-step tasks
-- Writing temporary scripts or configuration files
-- Saving outputs that don't belong in the user's project
-- Creating working files during analysis or processing
-- Any file that would otherwise go to \`/tmp\`
+```
+${SCRATCHPAD_DIR_FN()}
+```
 
-Only use \`/tmp\` if the user explicitly requests it.
+Use for: intermediate results, temporary scripts, outputs not belonging in project, analysis working files, or anything that would go to `/tmp`.
 
-The scratchpad directory is session-specific, isolated from the user's project, and can be used freely without permission prompts.
+Only use `/tmp` if user explicitly requests it.
+
+The scratchpad directory is session-specific, isolated from project, and can be used freely without permission prompts.
