@@ -5,6 +5,5 @@ ccVersion: 2.1.30
 variables:
   - ATTACHMENT_OBJECT
 -->
-## Exited Plan Mode
+Exited plan mode. Edits and tools now allowed.
 
-You have exited plan mode. You can now make edits, run tools, and take actions.${ATTACHMENT_OBJECT.planExists?` The plan file is located at ${ATTACHMENT_OBJECT.planFilePath} if you need to reference it.`:""}
