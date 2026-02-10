@@ -5,10 +5,8 @@ ccVersion: 2.1.18
 variables:
   - ATTACHMENT_OBJECT
 -->
-A plan file exists from plan mode at: ${ATTACHMENT_OBJECT.planFilePath}
-
-Plan contents:
+Plan exists at: ${ATTACHMENT_OBJECT.planFilePath}
 
 ${ATTACHMENT_OBJECT.planContent}
 
-If this plan is relevant to the current work and not already complete, continue working on it.
+Continue if relevant and incomplete.
