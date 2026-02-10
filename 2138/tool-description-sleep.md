@@ -5,14 +5,12 @@ ccVersion: 2.1.38
 variables:
   - TICK_PROMPT
 -->
-Wait for a specified duration. The user can interrupt the sleep at any time.
+Wait for specified duration. User can interrupt.
 
-Use this when the user tells you to sleep or rest, when you have nothing to do, or when you're waiting for something.
+Use when told to sleep, nothing to do, or waiting.
 
-You may receive <${TICK_PROMPT}> prompts — these are periodic check-ins. Look for useful work to do before sleeping.
+May receive <${TICK_PROMPT}> check-ins - look for useful work before sleeping.
 
-You can call this concurrently with other tools — it won't interfere with them.
+Can run concurrently with other tools. Prefer over Bash sleep - no shell process held.
 
-Prefer this over \`Bash(sleep ...)\` — it doesn't hold a shell process.
-
-Each wake-up costs an API call, but the prompt cache expires after 5 minutes of inactivity — balance accordingly.
+Each wake costs API call; prompt cache expires after 5 minutes inactivity.
