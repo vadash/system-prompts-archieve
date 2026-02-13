@@ -5,9 +5,8 @@ ccVersion: 2.1.20
 variables:
   - MUST_READ_FIRST_FN
 -->
-Performs exact string replacements in files.
-
-Usage:${MUST_READ_FIRST_FN()}
-- When editing text from Read tool output, ensure you preserve the exact indentation (tabs/spaces) as it appears AFTER the line number prefix (spaces + line number + tab). Everything after that tab is the actual file content to match. Never include any part of the line number prefix in the old_string or new_string.
-- The edit will FAIL if `old_string` is not unique in the file. Either provide a larger string with more surrounding context to make it unique or use `replace_all` to change every instance of `old_string`.
-- Use `replace_all` for replacing and renaming strings across the file.
+Performs exact string replacements.${MUST_READ_FIRST_FN()}
+- **Unique Match:** `old_string` must be unique in the file. If duplicates exist, include more surrounding context lines or use `replace_all`.
+- **Formatting:** `Read` output includes line prefixes (spaces + number + tab). You MUST strip this prefix. NEVER include line numbers in `old_string`.
+- **Whitespace:** You MUST preserve the exact indentation (tabs/spaces) of the content *after* the line number tab.
+- Use `replace_all` for global renames.
