@@ -16,24 +16,17 @@ variables:
   - BASH_TOOL_NAME
   - BASH_BACKGROUND_TASK_NOTES_FN
 -->
-Executes bash commands with optional timeout. Working directory persists; shell state does not.
-
-CRITICAL: For terminal operations (git, npm, docker) only. DO NOT use for file operations - use specialized tools instead.
-
-Usage notes:
-  - Timeout: up to ${CUSTOM_TIMEOUT_MS()}ms, default ${MAX_TIMEOUT_MS()}ms
-  - Output truncated at ${MAX_OUTPUT_CHARS()} characters
-  ${RUN_IN_BACKGROUND_NOTE()}
-  ${BASH_TOOL_EXTRA_NOTES()}
-  - Avoid find/grep/cat/head/tail/sed/awk/echo - use dedicated tools:
-    - ${GLOB_TOOL_NAME} for file search
-    - ${GREP_TOOL_NAME} for content search
-    - ${READ_TOOL_NAME} to read files
-    - ${EDIT_TOOL_NAME} to edit files
-    - ${WRITE_TOOL_NAME} to write files
-  - Independent commands: parallel calls in one message
-  - Dependent commands: single call with '&&' chaining
-  - Use absolute paths; avoid cd when possible
-  - Windows: use Unix syntax even on Windows (ls, not dir)
-
+Executes Bash commands. Working directory persists; shell variables do not.
+**CRITICAL:** Use for system operations (git, npm) ONLY.
+- **Forbidden:** `sed`, `awk`, `cat`, `grep`, `find`. Use ${EDIT_TOOL_NAME}, ${READ_TOOL_NAME}, ${GREP_TOOL_NAME}, ${GLOB_TOOL_NAME} instead.
+- **Windows Context:** This tool is BASH. Use Unix syntax (`ls` not `dir`) and forward slashes `/` for paths, even on Windows.
+- **Syntax:**
+  - **Always** quote paths with spaces: `"path/to file"`.
+  - Chain dependent commands with `&&` (e.g., `git add . && git commit`).
+  - Run independent commands via parallel tool calls.
+  - Use absolute paths; avoid `cd`.
+- **Timeout:** Default ${MAX_TIMEOUT_MS()}ms.
+- **Output:** Truncated at ${MAX_OUTPUT_CHARS()} chars.
+${RUN_IN_BACKGROUND_NOTE()}
+${BASH_TOOL_EXTRA_NOTES()}
 ${BASH_BACKGROUND_TASK_NOTES_FN()}
