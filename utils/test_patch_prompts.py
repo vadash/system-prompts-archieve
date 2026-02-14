@@ -88,3 +88,42 @@ class TestGetPatchableFiles:
         self._setup_tree(tmp_path)
         files = get_patchable_files(tmp_path)
         assert not any(f.suffix == ".png" for f in files)
+
+
+from patch_prompts import run_fixers
+
+
+class TestRunFixers:
+    def _write_test_files(self, tmp_path):
+        # MD with unescaped backtick + CRLF
+        (tmp_path / "test.md").write_bytes(
+            "inline `code` here\r\n".encode("utf-8")
+        )
+        # TXT with CRLF only
+        (tmp_path / "plain.txt").write_bytes(
+            "line1\r\nline2\r\n".encode("utf-8")
+        )
+
+    def test_escapes_backticks_in_md(self, tmp_path):
+        self._write_test_files(tmp_path)
+        run_fixers(tmp_path)
+        content = (tmp_path / "test.md").read_text(encoding="utf-8")
+        assert r"\`" in content
+        # No unescaped backticks remain
+        import re
+        assert not re.search(r'(?<!\\)`', content)
+
+    def test_fixes_line_endings_in_all_files(self, tmp_path):
+        self._write_test_files(tmp_path)
+        run_fixers(tmp_path)
+        md = (tmp_path / "test.md").read_text(encoding="utf-8")
+        txt = (tmp_path / "plain.txt").read_text(encoding="utf-8")
+        assert "\r" not in md
+        assert "\r" not in txt
+
+    def test_idempotent_no_double_escape(self, tmp_path):
+        self._write_test_files(tmp_path)
+        run_fixers(tmp_path)
+        run_fixers(tmp_path)  # second pass
+        content = (tmp_path / "test.md").read_text(encoding="utf-8")
+        assert r"\\" not in content

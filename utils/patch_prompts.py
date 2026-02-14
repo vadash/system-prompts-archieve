@@ -72,15 +72,42 @@ def get_patchable_files(path: Path) -> list[Path]:
     return results
 
 def run_fixers(path: Path) -> None:
-    ...
+    all_files = get_patchable_files(path)
+    print(f"Found {len(all_files)} files.", flush=True)
+
+    for fx in _fixers:
+        matching = [f for f in all_files if fnmatch.fnmatch(f.name, fx.filter)]
+        fixed_count = 0
+        print(f"\n[{fx.name}] Processing {len(matching)} files...", flush=True)
+
+        for file in matching:
+            try:
+                if fx.action(file):
+                    fixed_count += 1
+                    print(f"  [FIXED] {file.relative_to(path)}", flush=True)
+            except Exception as e:
+                print(f"  [ERROR] {file}: {e}", flush=True)
+
+        print(f"  {fixed_count} file(s) fixed.", flush=True)
 
 
 # --- Registered fixers ---
 
 @fixer("Escape backticks", filter="*.md")
 def _fixer_escape_backticks(file_path: Path) -> bool:
+    content = file_path.read_text(encoding="utf-8")
+    fixed = escape_backticks(content)
+    if fixed != content:
+        file_path.write_text(fixed, encoding="utf-8")
+        return True
     return False
 
 @fixer("Fix line endings", filter="*")
 def _fixer_fix_line_endings(file_path: Path) -> bool:
-    return False
+    raw = file_path.read_bytes()
+    if b"\r\n" not in raw:
+        return False
+    content = raw.decode("utf-8")
+    fixed = fix_line_endings(content)
+    file_path.write_text(fixed, encoding="utf-8", newline="\n")
+    return True
