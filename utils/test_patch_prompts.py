@@ -59,3 +59,32 @@ class TestFixLineEndings:
 
     def test_empty_string(self):
         assert fix_line_endings("") == ""
+
+
+from patch_prompts import get_patchable_files
+
+
+class TestGetPatchableFiles:
+    def _setup_tree(self, tmp_path):
+        """Create test directory structure."""
+        (tmp_path / ".git").mkdir()
+        (tmp_path / "sub").mkdir()
+        (tmp_path / "readme.md").write_text("hello", encoding="utf-8")
+        (tmp_path / "sub" / "notes.txt").write_text("world", encoding="utf-8")
+        (tmp_path / "image.png").write_bytes(bytes([0, 1, 2]))
+        (tmp_path / ".git" / "config").write_text("gitfile", encoding="utf-8")
+
+    def test_finds_text_files_recursively(self, tmp_path):
+        self._setup_tree(tmp_path)
+        files = get_patchable_files(tmp_path)
+        assert len(files) == 2
+
+    def test_skips_git_directory(self, tmp_path):
+        self._setup_tree(tmp_path)
+        files = get_patchable_files(tmp_path)
+        assert not any(".git" in str(f) for f in files)
+
+    def test_skips_binary_extensions(self, tmp_path):
+        self._setup_tree(tmp_path)
+        files = get_patchable_files(tmp_path)
+        assert not any(f.suffix == ".png" for f in files)

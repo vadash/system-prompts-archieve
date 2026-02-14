@@ -46,8 +46,30 @@ def fix_line_endings(text: str) -> str:
         return text
     return text.replace("\r\n", "\n")
 
+_BINARY_EXTENSIONS: set[str] = {
+    ".exe", ".dll", ".so", ".dylib", ".bin", ".dat",
+    ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".ico", ".svg",
+    ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
+    ".zip", ".tar", ".gz", ".rar", ".7z",
+    ".mp3", ".mp4", ".avi", ".mov", ".wav", ".flac",
+    ".ttf", ".otf", ".woff", ".woff2", ".eot",
+    ".pyc", ".class", ".jar", ".war", ".ear",
+}
+
+_SKIP_DIRS: set[str] = {".git", ".svn", "node_modules", "vendor", "target", "bin", "obj"}
+
+
 def get_patchable_files(path: Path) -> list[Path]:
-    ...
+    results: list[Path] = []
+    for item in path.rglob("*"):
+        if not item.is_file():
+            continue
+        if any(part in _SKIP_DIRS for part in item.relative_to(path).parts):
+            continue
+        if item.suffix.lower() in _BINARY_EXTENSIONS:
+            continue
+        results.append(item)
+    return results
 
 def run_fixers(path: Path) -> None:
     ...
