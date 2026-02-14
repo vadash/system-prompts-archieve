@@ -8,6 +8,12 @@ function Invoke-EscapeBackticks {
     return [regex]::Replace($Text, '(?<!\\)`', '\`')
 }
 
+function Invoke-FixLineEndings {
+    param([string]$Text)
+    if (-not $Text) { return $Text }
+    return $Text -replace "`r`n", "`n"
+}
+
 # --- Main execution (only when run directly, not dot-sourced) ---
 # Guard: $MyInvocation.InvocationName is "." when dot-sourced
 if ($MyInvocation.InvocationName -ne ".") {
