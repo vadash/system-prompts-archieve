@@ -111,3 +111,21 @@ def _fixer_fix_line_endings(file_path: Path) -> bool:
     fixed = fix_line_endings(content)
     file_path.write_text(fixed, encoding="utf-8", newline="\n")
     return True
+
+
+# --- CLI entry point ---
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        target = input("Enter directory path to patch: ")
+    else:
+        target = sys.argv[1]
+
+    target_path = Path(target).resolve()
+    if not target_path.is_dir():
+        print(f"Error: '{target}' is not a valid directory.", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"Scanning '{target_path}'...", flush=True)
+    run_fixers(target_path)
+    print("\nDone.", flush=True)
