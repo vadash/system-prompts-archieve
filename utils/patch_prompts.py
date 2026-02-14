@@ -33,7 +33,13 @@ def fixer(name: str, filter: str = "*"):
 # --- Core text transforms ---
 
 def escape_backticks(text: str) -> str:
-    ...
+    if not text:
+        return text
+    # Escape unescaped backticks (not preceded by \)
+    result = re.sub(r'(?<!\\)`', r'\`', text)
+    # Escape unescaped template literal ${ (not preceded by \)
+    result = re.sub(r'(?<!\\)\$\{', r'\${', result)
+    return result
 
 def fix_line_endings(text: str) -> str:
     ...
