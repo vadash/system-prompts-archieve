@@ -90,3 +90,47 @@ Describe "Get-PatchableFiles" {
         ($files | Where-Object { $_.Extension -eq ".png" }).Count | Should Be 0
     }
 }
+
+Describe "Invoke-Fixers (integration)" {
+    $testDir = Join-Path $TestDrive "integration"
+
+    BeforeEach {
+        New-Item -ItemType Directory -Path $testDir -Force | Out-Null
+        # MD file with unescaped backticks AND CRLF
+        # Use escaped backticks to create literal backticks in file
+        [System.IO.File]::WriteAllText(
+            "$testDir\test.md",
+            "inline ``code`` here`r`n",
+            [System.Text.UTF8Encoding]::new($false)
+        )
+        # TXT file with only CRLF (no backtick issue)
+        [System.IO.File]::WriteAllText(
+            "$testDir\plain.txt",
+            "line1`r`nline2`r`n",
+            [System.Text.UTF8Encoding]::new($false)
+        )
+    }
+
+    It "escapes backticks in .md files" {
+        Invoke-Fixers -Path $testDir
+        $content = [System.IO.File]::ReadAllText("$testDir\test.md")
+        $content | Should Match ([regex]::Escape('\`'))
+        $content | Should Not Match '(?<!\\)`'
+    }
+
+    It "fixes line endings in all files" {
+        Invoke-Fixers -Path $testDir
+        $mdContent = [System.IO.File]::ReadAllText("$testDir\test.md")
+        $txtContent = [System.IO.File]::ReadAllText("$testDir\plain.txt")
+        $mdContent | Should Not Match "`r"
+        $txtContent | Should Not Match "`r"
+    }
+
+    It "does not double-escape on second run" {
+        Invoke-Fixers -Path $testDir
+        Invoke-Fixers -Path $testDir  # run again
+        $content = [System.IO.File]::ReadAllText("$testDir\test.md")
+        # Should have \` not \\`
+        $content | Should Not Match ([regex]::Escape('\\`'))
+    }
+}
