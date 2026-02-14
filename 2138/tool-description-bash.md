@@ -19,7 +19,7 @@ variables:
 Executes Bash commands. Working directory persists; shell variables do not.
 **CRITICAL:** Use for system operations (git, npm) ONLY.
 - **Forbidden:** `sed`, `awk`, `cat`, `grep`, `find`. Use ${EDIT_TOOL_NAME}, ${READ_TOOL_NAME}, ${GREP_TOOL_NAME}, ${GLOB_TOOL_NAME} instead.
-- **Windows Context:** This tool is BASH. Use Unix syntax (`ls` not `dir`) and forward slashes `/` for paths, even on Windows.
+- **Windows Context:** This tool is BASH (Git Bash/WSL), NOT PowerShell or cmd.exe. Use Unix syntax (`ls` not `dir`), forward slashes `C:/path` (not `C:\path`), and no cmd flags like `/d`.
 - **Syntax:**
   - **Always** quote paths with spaces: `"path/to file"`.
   - Chain dependent commands with `&&` (e.g., `git add . && git commit`).
