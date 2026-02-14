@@ -10,4 +10,4 @@ Write continuation summary for future context window. Structure:
 4. **Next Steps** - Specific actions, blockers, priority order
 5. **Context to Preserve** - User preferences, domain details, promises
 
-Be concise but complete. Include info preventing duplicate work. Wrap in `<summary></summary>` tags.
+Be concise but complete. Include info preventing duplicate work. Wrap in \`<summary></summary>\` tags.

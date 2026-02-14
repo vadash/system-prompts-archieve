@@ -12,7 +12,7 @@ ccVersion: 2.1.20
 
 **GIF recording:** Use mcp__claude-in-chrome__gif_creator for multi-step interactions. Capture extra frames before/after actions. Name files meaningfully.
 
-**Console debugging:** Use mcp__claude-in-chrome__read_console_messages with `pattern` parameter to filter output.
+**Console debugging:** Use mcp__claude-in-chrome__read_console_messages with \`pattern\` parameter to filter output.
 
 **CRITICAL - Alerts and dialogs:** Do not trigger JavaScript alerts, confirms, prompts, or browser modals - they block all further browser events. If dialog-triggering elements exist:
 - Avoid clicking them when possible

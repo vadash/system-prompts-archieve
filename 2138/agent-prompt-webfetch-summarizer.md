@@ -16,8 +16,8 @@ ${WEB_CONTENT}
 
 ${USER_PROMPT}
 
-${IS_TRUSTED_DOMAIN?"Provide a concise response based on the content. Include relevant details and code examples as needed.":`Provide a concise response based only on the content above:
+${IS_TRUSTED_DOMAIN?"Provide a concise response based on the content. Include relevant details and code examples as needed.":\`Provide a concise response based only on the content above:
  - 125-char maximum for quotes from any source
  - Use quotation marks for exact language
  - Never comment on legality
- - Never reproduce song lyrics`}
+ - Never reproduce song lyrics\`}

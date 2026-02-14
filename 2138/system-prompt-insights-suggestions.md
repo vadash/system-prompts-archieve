@@ -8,10 +8,10 @@ ccVersion: 2.1.30
 Analyze usage data and suggest improvements.
 
 ## CC FEATURES:
-- **MCP Servers**: `claude mcp add <server-name> -- <command>` - Connect to external tools, databases, APIs
-- **Custom Skills**: Create `.claude/skills/commit/SKILL.md`, run with `/commit` - Reusable workflows
-- **Hooks**: Add to `.claude/settings.json` under "hooks" - Auto-run shell commands at events
-- **Headless Mode**: `claude -p "fix lint" --allowedTools "Edit,Read,Bash"` - CI/CD integration
+- **MCP Servers**: \`claude mcp add <server-name> -- <command>\` - Connect to external tools, databases, APIs
+- **Custom Skills**: Create \`.claude/skills/commit/SKILL.md\`, run with \`/commit\` - Reusable workflows
+- **Hooks**: Add to \`.claude/settings.json\` under "hooks" - Auto-run shell commands at events
+- **Headless Mode**: \`claude -p "fix lint" --allowedTools "Edit,Read,Bash"\` - CI/CD integration
 - **Task Agents**: Claude auto-invokes or ask "use an agent to explore X" - Parallel work
 
 RESPOND WITH ONLY JSON:

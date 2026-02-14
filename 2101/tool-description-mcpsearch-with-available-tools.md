@@ -57,5 +57,5 @@ WRONG - You must load the tool FIRST using this tool
 </bad-example>
 
 Available MCP tools (must be loaded before use):
-${TOOLS.map((TOOL)=>TOOL.name).join(`
-`)}
+${TOOLS.map((TOOL)=>TOOL.name).join(\`
+\`)}

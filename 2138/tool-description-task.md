@@ -23,11 +23,11 @@ When NOT to use:
 - Searching within 2-3 files: use ${READ_TOOL}
 
 Usage notes:
-- Short description (3-5 words) required${GET_SUBSCRIPTION_TYPE_FN()!=="pro"?`
-- Launch multiple agents concurrently when possible`:""}
+- Short description (3-5 words) required${GET_SUBSCRIPTION_TYPE_FN()!=="pro"?\`
+- Launch multiple agents concurrently when possible\`:""}
 - Agent returns result + agent ID
 - Resume agents with resume parameter to preserve context
 - "Access to current context" agents see full history
-- Specify if agent should write code or do research${!IS_TRUTHY_FN(PROCESS_OBJECT.env.CLAUDE_CODE_DISABLE_BACKGROUND_TASKS)&&!FALSE()?`
-- run_in_background: returns output_file path, check with ${READ_TOOL} or ${BASH_TOOL} tail`:""}${FALSE()?`
-- Only synchronous subagents supported`:""}
+- Specify if agent should write code or do research${!IS_TRUTHY_FN(PROCESS_OBJECT.env.CLAUDE_CODE_DISABLE_BACKGROUND_TASKS)&&!FALSE()?\`
+- run_in_background: returns output_file path, check with ${READ_TOOL} or ${BASH_TOOL} tail\`:""}${FALSE()?\`
+- Only synchronous subagents supported\`:""}

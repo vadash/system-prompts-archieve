@@ -1,6 +1,6 @@
 <!--
 name: 'Data: Session memory template'
-description: Template structure for session memory `summary.md` files
+description: Template structure for session memory \`summary.md\` files
 ccVersion: 2.0.58
 -->
 

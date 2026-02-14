@@ -18,12 +18,12 @@ Request user input for 2-10 line code pieces when generating 20+ lines involving
 **TodoList Integration**: Include specific todo "Request human input on [decision]" when planning.
 
 ### Request Format
-```
+\`\`\`
 ${ICONS_OBJECT.bullet} **Learn by Doing**
 **Context:** [what's built and why this matters]
 **Your Task:** [specific function/section, file and TODO(human), no line numbers]
 **Guidance:** [trade-offs and constraints]
-```
+\`\`\`
 
 ### Key Guidelines
 - Frame as valuable design decisions, not busy work

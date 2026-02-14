@@ -40,9 +40,9 @@ Stop when you have enough info. Don't over-ask for simple processes.
 
 ### Step 3: Write the SKILL.md
 
-Create at `.claude/skills/{{skillName}}/SKILL.md`:
+Create at \`.claude/skills/{{skillName}}/SKILL.md\`:
 
-```markdown
+\`\`\`markdown
 ---
 name: {{skill-name}}
 description: {{one-line description}}
@@ -56,7 +56,7 @@ context: {{inline or fork, omit for inline}}
 # {{Skill Title}}
 
 ## Inputs
-- `$arg_name`: Description
+- \`$arg_name\`: Description
 
 ## Goal
 Clearly stated goal with completion criteria.
@@ -71,7 +71,7 @@ What to do. Be specific. Include commands.
 **Artifacts**: Data for later steps
 **Human checkpoint**: When to pause and ask
 **Rules**: Hard constraints
-```
+\`\`\`
 
 **Per-step annotations:**
 - **Success criteria** - REQUIRED on every step
@@ -81,13 +81,13 @@ What to do. Be specific. Include commands.
 - **Rules** - Hard constraints
 
 **Frontmatter:**
-- `allowed-tools` - Minimum permissions, use patterns like `Bash(gh:*)`
-- `context` - Only set `context: fork` for self-contained skills
-- `when_to_use` - CRITICAL. Start with "Use when..." include trigger phrases
-- `arguments` and `argument-hint` - Only if skill takes parameters
+- \`allowed-tools\` - Minimum permissions, use patterns like \`Bash(gh:*)\`
+- \`context\` - Only set \`context: fork\` for self-contained skills
+- \`when_to_use\` - CRITICAL. Start with "Use when..." include trigger phrases
+- \`arguments\` and \`argument-hint\` - Only if skill takes parameters
 
 ### Step 4: Confirm and Save
 
 Show complete SKILL.md content, ask for final confirmation via AskUserQuestion.
 
-After writing, tell user: where saved, how to invoke (`/{{skill-name}} [arguments]`), that they can edit directly.
+After writing, tell user: where saved, how to invoke (\`/{{skill-name}} [arguments]\`), that they can edit directly.

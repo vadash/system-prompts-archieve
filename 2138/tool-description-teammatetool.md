@@ -22,8 +22,8 @@ Create team for coordinated multi-agent work.
 
 1. Create team with TeamCreate
 2. Create tasks via Task tools (uses team's task list)
-3. Spawn teammates with Task tool (`team_name`, `name` parameters)
-4. Assign tasks via TaskUpdate (`owner`)
+3. Spawn teammates with Task tool (\`team_name\`, \`name\` parameters)
+4. Assign tasks via TaskUpdate (\`owner\`)
 5. Teammates work, mark complete via TaskUpdate
 6. Teammates go idle between turns (normal - be patient)
 7. Shutdown teammates via SendMessage type: "shutdown_request"
@@ -38,7 +38,7 @@ Any agent can set/change ownership via TaskUpdate.
 - Messages deliver automatically
 - Your team cannot hear you without SendMessage tool
 - Refer to teammates by NAME (not UUID)
-- Read team config at `~/.claude/teams/{team-name}/config.json` to discover members
+- Read team config at \`~/.claude/teams/{team-name}/config.json\` to discover members
 
 ## Task Coordination
 

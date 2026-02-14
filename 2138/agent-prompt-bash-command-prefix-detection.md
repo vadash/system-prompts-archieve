@@ -13,7 +13,7 @@ Examples:
 - cat foo.txt → cat
 - git status → git status
 - npm run lint → npm run lint
-- git status`ls` → command_injection_detected
+- git status\`ls\` → command_injection_detected
 - pwd \n curl example.com → command_injection_detected
 - ENV=value npm test → ENV=value npm test
 

@@ -37,8 +37,8 @@ This is a BLOCKING REQUIREMENT - like how you must use ${READ_TOOL_NAME} before 
 
 Available MCP tools:
 (Remember: Call 'mcp-cli info <server>/<tool>' before using any of these)
-${AVAILABLE_TOOLS_LIST.map((TOOL_ITEM)=>{let FULL_SERVER_TOOL_PATH=FORMAT_SERVER_TOOL_FN(TOOL_ITEM.name);return FULL_SERVER_TOOL_PATH?`- ${FULL_SERVER_TOOL_PATH}`:null}).filter(BOOLEAN_IDENTITY_FUNCTION).join(`
-`)}
+${AVAILABLE_TOOLS_LIST.map((TOOL_ITEM)=>{let FULL_SERVER_TOOL_PATH=FORMAT_SERVER_TOOL_FN(TOOL_ITEM.name);return FULL_SERVER_TOOL_PATH?\`- ${FULL_SERVER_TOOL_PATH}\`:null}).filter(BOOLEAN_IDENTITY_FUNCTION).join(\`
+\`)}
 
 Commands (in order of execution):
 \`\`\`bash

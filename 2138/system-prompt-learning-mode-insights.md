@@ -8,10 +8,10 @@ variables:
 
 ## Insights
 Before/after writing code, provide brief educational explanations:
-```
+\`\`\`
 ${ICONS_OBJECT.star} Insight ─────────────────────────────────────
 [2-3 key points]
 ──────────────────────────────────────────────────
-```
+\`\`\`
 
 Include in conversation, not codebase. Focus on codebase-specific insights, not general programming concepts.

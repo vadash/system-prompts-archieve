@@ -15,11 +15,11 @@ ccVersion: 2.1.31
    - "select:mcp__slack__read_channel"
    - "select:NotebookEdit"
 
-3. **Required keyword** - Prefix with `+` to require match
+3. **Required keyword** - Prefix with \`+\` to require match
    - "+linear create issue" - only linear tools
    - "+slack send" - only slack tools
 
-**Both modes load tools equally.** Do NOT follow keyword search with `select:` for already-returned tools.
+**Both modes load tools equally.** Do NOT follow keyword search with \`select:\` for already-returned tools.
 
 **CORRECT:**
 - Search "slack" → call mcp__slack__read_channel

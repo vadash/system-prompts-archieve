@@ -23,11 +23,11 @@ Team communication and protocol handling.
 - recipient, content required
 
 **shutdown_response** - MUST respond to shutdown requests
-- Extract `requestId` from JSON, pass as `request_id`
+- Extract \`requestId\` from JSON, pass as \`request_id\`
 - approve: true to exit, false to continue
 
 **plan_approval_response** - Approve/reject teammate's plan
-- Extract `request_id`, set approve true/false
+- Extract \`request_id\`, set approve true/false
 - Optional content for rejection feedback
 
 **Important:**

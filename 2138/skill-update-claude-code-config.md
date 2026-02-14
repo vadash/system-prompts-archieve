@@ -36,9 +36,9 @@ Use AskUserQuestion to clarify:
 ## Config Tool vs Direct Edit
 
 **Use Config tool for:**
-- `theme`, `editorMode`, `verbose`, `model`
-- `language`, `alwaysThinkingEnabled`
-- `permissions.defaultMode`
+- \`theme\`, \`editorMode\`, \`verbose\`, \`model\`
+- \`language\`, \`alwaysThinkingEnabled\`
+- \`permissions.defaultMode\`
 
 **Edit settings.json directly for:**
 - Hooks (PreToolUse, PostToolUse, etc.)
@@ -60,12 +60,12 @@ Use AskUserQuestion to clarify:
 When adding to permission or hook arrays, **merge with existing**, don't replace.
 
 **WRONG** - replaces existing:
-```json
+\`\`\`json
 { "permissions": { "allow": ["Bash(npm:*)"] } }
-```
+\`\`\`
 
 **RIGHT** - preserves existing + adds new:
-```json
+\`\`\`json
 {
   "permissions": {
     "allow": [
@@ -75,7 +75,7 @@ When adding to permission or hook arrays, **merge with existing**, don't replace
     ]
   }
 }
-```
+\`\`\`
 
 ${SETTINGS_FILE_LOCATION_PROMPT}
 
@@ -89,4 +89,4 @@ If hook isn't running:
 3. Check the matcher matches tool name ("Bash", "Write", "Edit")
 4. Check hook type ("command", "prompt", "agent")
 5. Test the command manually
-6. Run `claude --debug` for execution logs
+6. Run \`claude --debug\` for execution logs

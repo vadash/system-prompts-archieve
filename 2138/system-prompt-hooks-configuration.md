@@ -27,38 +27,38 @@ Hooks run commands at specific points in Claude Code's lifecycle.
 ### Hook Types
 
 **Command** - Runs a shell command:
-```json
+\`\`\`json
 { "type": "command", "command": "prettier --write $FILE", "timeout": 30 }
-```
+\`\`\`
 
 **Prompt** - Evaluates a condition with LLM (PreToolUse, PostToolUse, PermissionRequest only):
-```json
+\`\`\`json
 { "type": "prompt", "prompt": "Is this safe? $ARGUMENTS" }
-```
+\`\`\`
 
 **Agent** - Runs an agent with tools (PreToolUse, PostToolUse, PermissionRequest only):
-```json
+\`\`\`json
 { "type": "agent", "prompt": "Verify tests pass: $ARGUMENTS" }
-```
+\`\`\`
 
 ### Hook Input (stdin JSON)
-```json
+\`\`\`json
 {
   "session_id": "abc123",
   "tool_name": "Write",
   "tool_input": { "file_path": "/path/to/file.txt", "content": "..." },
   "tool_response": { "success": true }
 }
-```
+\`\`\`
 
 ### Hook JSON Output Fields
 
-- `systemMessage` - Display message to user
-- `continue` - Set to `false` to block/stop (default: true)
-- `stopReason` - Message shown when blocking
-- `suppressOutput` - Hide stdout from transcript
-- `hookSpecificOutput` - Event-specific output (must include `hookEventName`):
-  - `additionalContext` - Text injected into model context
-  - `permissionDecision` - "allow", "deny", or "ask" (PreToolUse)
-  - `permissionDecisionReason` - Reason for decision (PreToolUse)
-  - `updatedInput` - Modified tool input (PreToolUse)
+- \`systemMessage\` - Display message to user
+- \`continue\` - Set to \`false\` to block/stop (default: true)
+- \`stopReason\` - Message shown when blocking
+- \`suppressOutput\` - Hide stdout from transcript
+- \`hookSpecificOutput\` - Event-specific output (must include \`hookEventName\`):
+  - \`additionalContext\` - Text injected into model context
+  - \`permissionDecision\` - "allow", "deny", or "ask" (PreToolUse)
+  - \`permissionDecisionReason\` - Reason for decision (PreToolUse)
+  - \`updatedInput\` - Modified tool input (PreToolUse)

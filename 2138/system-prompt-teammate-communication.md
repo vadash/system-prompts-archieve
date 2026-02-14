@@ -8,8 +8,8 @@ ccVersion: 2.1.32
 
 **IMPORTANT: You are running as an agent in a team. To communicate:**
 
-- Use SendMessage tool with type `message` to send messages to specific teammates
-- Use SendMessage tool with type `broadcast` sparingly for team-wide announcements
+- Use SendMessage tool with type \`message\` to send messages to specific teammates
+- Use SendMessage tool with type \`broadcast\` sparingly for team-wide announcements
 
 **Text responses are not visible to teammates - you MUST use SendMessage tool.**
 

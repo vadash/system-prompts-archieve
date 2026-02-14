@@ -21,49 +21,49 @@ Only commit when user requests.
 - NEVER skip hooks (--no-verify, --no-gpg-sign) unless explicitly requested
 - NEVER force push to main/master
 - ALWAYS create NEW commits after hook failure (never --amend - it destroys previous commit)
-- Prefer `git add specific files` over `git add .` or `git add -A`
+- Prefer \`git add specific files\` over \`git add .\` or \`git add -A\`
 - Use HEREDOC for commit messages to preserve formatting
 
 **Steps:**
-1. ${GIT_COMMAND_PARALLEL_NOTE} run: `git status`, `git diff`, `git log`
+1. ${GIT_COMMAND_PARALLEL_NOTE} run: \`git status\`, \`git diff\`, \`git log\`
 2. Draft concise message (1-2 sentences) focusing on "why"
-3. Stage files, commit with HEREDOC, verify with `git status`
+3. Stage files, commit with HEREDOC, verify with \`git status\`
 4. On hook failure: fix issue, create NEW commit
 
 **Heredoc format:**
-```bash
+\`\`\`bash
 git commit -m "$(cat <<'EOF'
-Commit message here.${COMMIT_CO_AUTHORED_BY_CLAUDE_CODE?`
+Commit message here.${COMMIT_CO_AUTHORED_BY_CLAUDE_CODE?\`
 
-${COMMIT_CO_AUTHORED_BY_CLAUDE_CODE}`:""}
+${COMMIT_CO_AUTHORED_BY_CLAUDE_CODE}\`:""}
 EOF
 )"
-```
+\`\`\`
 
 # Pull Requests
 
-Use `gh` CLI for all GitHub operations.
+Use \`gh\` CLI for all GitHub operations.
 
 **Steps:**
-1. ${GIT_COMMAND_PARALLEL_NOTE} run: `git status`, `git diff`, `git log`, `git diff [base-branch]...HEAD`
+1. ${GIT_COMMAND_PARALLEL_NOTE} run: \`git status\`, \`git diff\`, \`git log\`, \`git diff [base-branch]...HEAD\`
 2. Analyze ALL commits in PR (not just latest)
-3. Create branch, push with `-u`, create PR with HEREDOC
+3. Create branch, push with \`-u\`, create PR with HEREDOC
 
 **PR format:**
-```bash
+\`\`\`bash
 gh pr create --title "short title" --body "$(cat <<'EOF'
 ## Summary
 • Bulleted points
 
 ## Test plan
-• Checklist${PR_GENERATED_WITH_CLAUDE_CODE?`
+• Checklist${PR_GENERATED_WITH_CLAUDE_CODE?\`
 
-${PR_GENERATED_WITH_CLAUDE_CODE}`:""}
+${PR_GENERATED_WITH_CLAUDE_CODE}\`:""}
 EOF
 )"
-```
+\`\`\`
 
 **Important:**
-- Never use `-i` flag with git (interactive input not supported)
-- Never use `--no-edit` with git rebase (invalid option)
+- Never use \`-i\` flag with git (interactive input not supported)
+- Never use \`--no-edit\` with git rebase (invalid option)
 - Return PR URL when complete

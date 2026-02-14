@@ -5,7 +5,7 @@ ccVersion: 2.0.71
 -->
 Mouse and keyboard interaction with web browser, screenshots.
 
-Use `tabs_context_mcp` first to get valid tab ID.
+Use \`tabs_context_mcp\` first to get valid tab ID.
 
 **Clicking:**
 - Consult screenshot before clicking to determine coordinates
