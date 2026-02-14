@@ -42,3 +42,20 @@ class TestEscapeBackticks:
 
     def test_no_double_escape_template_literal(self):
         assert escape_backticks(r'\`\${already}') == r'\`\${already}'
+
+
+from patch_prompts import fix_line_endings
+
+
+class TestFixLineEndings:
+    def test_converts_crlf_to_lf(self):
+        assert fix_line_endings("line1\r\nline2\r\n") == "line1\nline2\n"
+
+    def test_lf_only_unchanged(self):
+        assert fix_line_endings("line1\nline2\n") == "line1\nline2\n"
+
+    def test_mixed_crlf_and_lf(self):
+        assert fix_line_endings("crlf\r\nlf\nmore\r\n") == "crlf\nlf\nmore\n"
+
+    def test_empty_string(self):
+        assert fix_line_endings("") == ""

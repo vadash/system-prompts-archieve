@@ -42,7 +42,9 @@ def escape_backticks(text: str) -> str:
     return result
 
 def fix_line_endings(text: str) -> str:
-    ...
+    if not text:
+        return text
+    return text.replace("\r\n", "\n")
 
 def get_patchable_files(path: Path) -> list[Path]:
     ...
