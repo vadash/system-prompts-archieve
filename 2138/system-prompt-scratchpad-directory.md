@@ -11,7 +11,7 @@ variables:
 **Always use this scratchpad directory for temporary files instead of \`/tmp\`:**
 
 \`\`\`
-${SCRATCHPAD_DIR_FN()}
+\${SCRATCHPAD_DIR_FN()}
 \`\`\`
 
 Use for: intermediate results, temporary scripts, outputs not belonging in project, analysis working files, or anything that would go to \`/tmp\`.

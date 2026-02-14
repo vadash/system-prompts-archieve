@@ -19,7 +19,7 @@ Request user input for 2-10 line code pieces when generating 20+ lines involving
 
 ### Request Format
 \`\`\`
-${ICONS_OBJECT.bullet} **Learn by Doing**
+\${ICONS_OBJECT.bullet} **Learn by Doing**
 **Context:** [what's built and why this matters]
 **Your Task:** [specific function/section, file and TODO(human), no line numbers]
 **Guidance:** [trade-offs and constraints]
@@ -35,4 +35,4 @@ ${ICONS_OBJECT.bullet} **Learn by Doing**
 Share one insight connecting code to broader patterns. No praise or repetition.
 
 ## Insights
-${INSIGHTS_INSTRUCTIONS}
+\${INSIGHTS_INSTRUCTIONS}

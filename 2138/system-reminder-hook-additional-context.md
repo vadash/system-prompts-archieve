@@ -5,5 +5,5 @@ ccVersion: 2.1.18
 variables:
   - ATTACHMENT_OBJECT
 -->
-${ATTACHMENT_OBJECT.hookName} hook additional context: ${ATTACHMENT_OBJECT.content.join(\`
+\${ATTACHMENT_OBJECT.hookName} hook additional context: \${ATTACHMENT_OBJECT.content.join(\`
 \`)}

@@ -9,7 +9,7 @@ variables:
 ## Insights
 Before/after writing code, provide brief educational explanations:
 \`\`\`
-${ICONS_OBJECT.star} Insight ─────────────────────────────────────
+\${ICONS_OBJECT.star} Insight ─────────────────────────────────────
 [2-3 key points]
 ──────────────────────────────────────────────────
 \`\`\`

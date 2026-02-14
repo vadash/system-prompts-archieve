@@ -25,7 +25,7 @@ Only commit when user requests.
 - Use HEREDOC for commit messages to preserve formatting
 
 **Steps:**
-1. ${GIT_COMMAND_PARALLEL_NOTE} run: \`git status\`, \`git diff\`, \`git log\`
+1. \${GIT_COMMAND_PARALLEL_NOTE} run: \`git status\`, \`git diff\`, \`git log\`
 2. Draft concise message (1-2 sentences) focusing on "why"
 3. Stage files, commit with HEREDOC, verify with \`git status\`
 4. On hook failure: fix issue, create NEW commit
@@ -33,9 +33,9 @@ Only commit when user requests.
 **Heredoc format:**
 \`\`\`bash
 git commit -m "$(cat <<'EOF'
-Commit message here.${COMMIT_CO_AUTHORED_BY_CLAUDE_CODE?\`
+Commit message here.\${COMMIT_CO_AUTHORED_BY_CLAUDE_CODE?\`
 
-${COMMIT_CO_AUTHORED_BY_CLAUDE_CODE}\`:""}
+\${COMMIT_CO_AUTHORED_BY_CLAUDE_CODE}\`:""}
 EOF
 )"
 \`\`\`
@@ -45,7 +45,7 @@ EOF
 Use \`gh\` CLI for all GitHub operations.
 
 **Steps:**
-1. ${GIT_COMMAND_PARALLEL_NOTE} run: \`git status\`, \`git diff\`, \`git log\`, \`git diff [base-branch]...HEAD\`
+1. \${GIT_COMMAND_PARALLEL_NOTE} run: \`git status\`, \`git diff\`, \`git log\`, \`git diff [base-branch]...HEAD\`
 2. Analyze ALL commits in PR (not just latest)
 3. Create branch, push with \`-u\`, create PR with HEREDOC
 
@@ -56,9 +56,9 @@ gh pr create --title "short title" --body "$(cat <<'EOF'
 • Bulleted points
 
 ## Test plan
-• Checklist${PR_GENERATED_WITH_CLAUDE_CODE?\`
+• Checklist\${PR_GENERATED_WITH_CLAUDE_CODE?\`
 
-${PR_GENERATED_WITH_CLAUDE_CODE}\`:""}
+\${PR_GENERATED_WITH_CLAUDE_CODE}\`:""}
 EOF
 )"
 \`\`\`

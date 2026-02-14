@@ -7,4 +7,4 @@ variables:
 -->
 <new-diagnostics>The following new diagnostic issues were detected:
 
-${DIAGNOSTICS_SUMMARY}</new-diagnostics>
+\${DIAGNOSTICS_SUMMARY}</new-diagnostics>

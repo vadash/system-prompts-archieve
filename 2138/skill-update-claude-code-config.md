@@ -77,9 +77,9 @@ When adding to permission or hook arrays, **merge with existing**, don't replace
 }
 \`\`\`
 
-${SETTINGS_FILE_LOCATION_PROMPT}
+\${SETTINGS_FILE_LOCATION_PROMPT}
 
-${HOOKS_CONFIGURATION_PROMPT}
+\${HOOKS_CONFIGURATION_PROMPT}
 
 ## Troubleshooting Hooks
 

@@ -5,8 +5,8 @@ ccVersion: 2.1.18
 variables:
   - ATTACHMENT_OBJECT
 -->
-Plan exists at: ${ATTACHMENT_OBJECT.planFilePath}
+Plan exists at: \${ATTACHMENT_OBJECT.planFilePath}
 
-${ATTACHMENT_OBJECT.planContent}
+\${ATTACHMENT_OBJECT.planContent}
 
 Continue if relevant and incomplete.

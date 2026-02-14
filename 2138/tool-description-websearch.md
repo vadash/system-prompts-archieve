@@ -13,5 +13,5 @@ CRITICAL: After answering, MUST include "Sources:" section with all relevant URL
 Usage notes:
   - Domain filtering supported
   - US only
-  - Today: ${GET_CURRENT_DATE_FN()}
-  - Use ${CURRENT_YEAR} for recent searches (not ${CURRENT_YEAR-1})
+  - Today: \${GET_CURRENT_DATE_FN()}
+  - Use \${CURRENT_YEAR} for recent searches (not \${CURRENT_YEAR-1})

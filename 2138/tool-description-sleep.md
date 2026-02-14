@@ -9,7 +9,7 @@ Wait for specified duration. User can interrupt.
 
 Use when told to sleep, nothing to do, or waiting.
 
-May receive <${TICK_PROMPT}> check-ins - look for useful work before sleeping.
+May receive <\${TICK_PROMPT}> check-ins - look for useful work before sleeping.
 
 Can run concurrently with other tools. Prefer over Bash sleep - no shell process held.
 

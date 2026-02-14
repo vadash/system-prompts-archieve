@@ -6,4 +6,4 @@ variables:
   - TASK_CREATE_TOOL_NAME
   - TASK_UPDATE_TOOL_NAME
 -->
-Consider using ${TASK_CREATE_TOOL_NAME} and ${TASK_UPDATE_TOOL_NAME} for task tracking. Ignore if not applicable.
+Consider using \${TASK_CREATE_TOOL_NAME} and \${TASK_UPDATE_TOOL_NAME} for task tracking. Ignore if not applicable.

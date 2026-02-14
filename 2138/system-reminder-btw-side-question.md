@@ -16,4 +16,4 @@ CRITICAL CONSTRAINTS:
 
 Simply answer the question with the information you have.</system-reminder>
 
-${SIDE_QUESTION}
+\${SIDE_QUESTION}

@@ -24,7 +24,7 @@ ONLY task: use Edit tool to update notes file, then stop. Make multiple edits in
 - Write DETAILED, INFO-DENSE content: file paths, function names, errors, commands
 - For "Key results": include complete exact output requested
 - Exclude info already in CLAUDE.md files
-- Keep each section under ~${MAX_SECTION_TOKENS} tokens
+- Keep each section under ~\${MAX_SECTION_TOKENS} tokens
 - IMPORTANT: Always update "Current State" for continuity
 
 Use Edit tool with file_path: {{notesPath}}

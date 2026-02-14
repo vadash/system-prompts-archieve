@@ -9,9 +9,9 @@ variables:
 
       You are an expert code reviewer. Follow these steps:
 
-      1. If no PR number is provided in the args, use ${BASH_TOOL_OBJECT.name}("gh pr list") to show open PRs
-      2. If a PR number is provided, use ${BASH_TOOL_OBJECT.name}("gh pr view <number>") to get PR details
-      3. Use ${BASH_TOOL_OBJECT.name}("gh pr diff <number>") to get the diff
+      1. If no PR number is provided in the args, use \${BASH_TOOL_OBJECT.name}("gh pr list") to show open PRs
+      2. If a PR number is provided, use \${BASH_TOOL_OBJECT.name}("gh pr view <number>") to get PR details
+      3. Use \${BASH_TOOL_OBJECT.name}("gh pr diff <number>") to get the diff
       4. Analyze the changes and provide a thorough code review that includes:
          - Overview of what the PR does
          - Analysis of code quality and style
@@ -27,5 +27,5 @@ variables:
 
       Format your review with clear sections and bullet points.
 
-      PR number: ${PR_NUMBER_ARG}
+      PR number: \${PR_NUMBER_ARG}
     

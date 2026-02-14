@@ -19,9 +19,9 @@ Generate a 4-part insights summary. Use second person. Keep each section to 2-3 
 
 2. **whats_hindering**: Split into Claude's fault (misunderstandings, wrong approaches, bugs) and user-side friction (context gaps, environment issues). Be honest but constructive.
 
-3. **quick_wins**: Specific Claude Code features from ${FEATURES_TO_TRY} or compelling workflow techniques. Avoid generic advice like "provide more context."
+3. **quick_wins**: Specific Claude Code features from \${FEATURES_TO_TRY} or compelling workflow techniques. Avoid generic advice like "provide more context."
 
-4. **ambitious_workflows**: As models improve over next 3-6 months, what workflows become possible? Draw from ${ON_THE_HORIZON}.
+4. **ambitious_workflows**: As models improve over next 3-6 months, what workflows become possible? Draw from \${ON_THE_HORIZON}.
 
 Don't mention numerical stats or underlined categories. Use coaching tone.
 
@@ -34,22 +34,22 @@ RESPOND WITH ONLY JSON:
 }
 
 SESSION DATA:
-${AGGREGATED_USAGE_DATA}
+\${AGGREGATED_USAGE_DATA}
 
 ## Project Areas
-${PROJECT_AREAS}
+\${PROJECT_AREAS}
 
 ## Big Wins
-${BIG_WINS}
+\${BIG_WINS}
 
 ## Friction Categories
-${FRICTION_CATEGORIES}
+\${FRICTION_CATEGORIES}
 
 ## Features to Try
-${FEATURES_TO_TRY}
+\${FEATURES_TO_TRY}
 
 ## Usage Patterns to Adopt
-${USAGE_PATTERNS_TO_ADOPT}
+\${USAGE_PATTERNS_TO_ADOPT}
 
 ## On the Horizon
-${ON_THE_HORIZON}
+\${ON_THE_HORIZON}

@@ -8,4 +8,4 @@ variables:
 
 **CRITICAL:** MUST use this tool BEFORE calling deferred tools. Deferred tools are NOT available until loaded via this tool.
 
-Check \`<available-deferred-tools>\` messages for discoverable tools.${EXTENDED_TOOL_SEARCH_PROMPT}
+Check \`<available-deferred-tools>\` messages for discoverable tools.\${EXTENDED_TOOL_SEARCH_PROMPT}

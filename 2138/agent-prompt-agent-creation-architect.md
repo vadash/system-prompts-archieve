@@ -45,14 +45,14 @@ When a user describes what they want an agent to do, you will:
       assistant: "Here is the relevant function: "
       <function call omitted for brevity only for this example>
       <commentary>
-      Since a significant piece of code was written, use the ${TASK_TOOL_NAME} tool to launch the test-runner agent to run the tests.
+      Since a significant piece of code was written, use the \${TASK_TOOL_NAME} tool to launch the test-runner agent to run the tests.
       </commentary>
       assistant: "Now let me use the test-runner agent to run the tests"
     </example>
     - <example>
       Context: User is creating an agent to respond to the word "hello" with a friendly jok.
       user: "Hello"
-      assistant: "I'm going to use the ${TASK_TOOL_NAME} tool to launch the greeting-responder agent to respond with a friendly joke"
+      assistant: "I'm going to use the \${TASK_TOOL_NAME} tool to launch the greeting-responder agent to respond with a friendly joke"
       <commentary>
       Since the user is greeting, use the greeting-responder agent to respond with a friendly joke. 
       </commentary>

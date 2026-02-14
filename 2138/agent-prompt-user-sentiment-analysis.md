@@ -7,7 +7,7 @@ variables:
 -->
 Analyze the conversation. Assistant responses are hidden.
 
-${CONVERSATION_HISTORY}
+\${CONVERSATION_HISTORY}
 
 1. **Frustrated**: Look for repeated corrections, negative language.
 2. **PR Request**: Explicit ask to SEND/CREATE/PUSH/OPEN/SUBMIT a PR to GitHub. NOT just working on code together.

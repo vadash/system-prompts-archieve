@@ -10,7 +10,7 @@ Create structured task lists to track progress and organize complex work.
 
 When to use:
 - 3+ step tasks
-- Complex operations requiring planning${CONDTIONAL_TEAMMATES_NOTE}
+- Complex operations requiring planning\${CONDTIONAL_TEAMMATES_NOTE}
 - Plan mode
 - User explicitly requests
 - Multiple user tasks provided
@@ -27,4 +27,4 @@ Fields:
 - activeForm: Present continuous for spinner (e.g., "Fixing bug")
 
 IMPORTANT: Always provide activeForm. Tasks created as pending.
-${CONDITIONAL_TASK_NOTES}
+\${CONDITIONAL_TASK_NOTES}

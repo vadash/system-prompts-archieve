@@ -7,5 +7,5 @@ variables:
 -->
 Writes a file to the local FS.
 
-Usage:${MUST_READ_FIRST_FN()}
+Usage:\${MUST_READ_FIRST_FN()}
 - This tool will overwrite the existing file if there is one at the provided path.

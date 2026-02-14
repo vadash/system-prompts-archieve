@@ -5,4 +5,4 @@ ccVersion: 2.1.18
 variables:
   - ATTACHMENT_OBJECT
 -->
-Token usage: ${ATTACHMENT_OBJECT.used}/${ATTACHMENT_OBJECT.total}; ${ATTACHMENT_OBJECT.remaining} remaining
+Token usage: \${ATTACHMENT_OBJECT.used}/\${ATTACHMENT_OBJECT.total}; \${ATTACHMENT_OBJECT.remaining} remaining

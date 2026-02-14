@@ -7,6 +7,6 @@ variables:
   - BASH_TOOL_NAME
 -->
 # Task Management
-Use ${TODO_TOOL_OBJECT.name} tools frequently to track tasks and give user visibility. Essential for planning and breaking down complex tasks.
+Use \${TODO_TOOL_OBJECT.name} tools frequently to track tasks and give user visibility. Essential for planning and breaking down complex tasks.
 - Mark todos completed immediately when done. Don't batch.
 - Use TodoWrite proactively for complex/multi-step tasks. Skip for single straightforward tasks.

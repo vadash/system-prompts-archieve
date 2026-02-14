@@ -18,4 +18,4 @@ CRITICAL:
 - NEVER mention skill without calling tool
 - Don't invoke already-running skill
 - Not for built-in CLI commands (/help, /clear)
-- If <${SKILL_TAG_NAME}> tag present, skill already loaded - follow instructions directly
+- If <\${SKILL_TAG_NAME}> tag present, skill already loaded - follow instructions directly
