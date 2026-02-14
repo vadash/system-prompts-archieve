@@ -31,6 +31,18 @@ Describe "Invoke-EscapeBackticks" {
         $result = Invoke-EscapeBackticks ''
         $result | Should Be ''
     }
+
+    It "escapes template literal syntax `${ to `${" {
+        $result = Invoke-EscapeBackticks '`${K?"test":"fail"}'
+        # Escapes both backtick (` → \`) and template literal (${ → \${)
+        $result | Should Be '\`\${K?"test":"fail"}'
+    }
+
+    It "does NOT double-escape already-escaped `${" {
+        $result = Invoke-EscapeBackticks '\\`\${already}'
+        # Both already escaped, should remain unchanged
+        $result | Should Be '\\`\${already}'
+    }
 }
 
 Describe "Invoke-FixLineEndings" {

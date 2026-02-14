@@ -2,19 +2,23 @@
 
 ## 1. Problem Statement
 
-\`tweakcc --apply\` fails when system prompt \`.md\` files contain unescaped backticks.
-Files may also have Windows CRLF line endings that cause issues.
+\`tweakcc --apply\` fails when system prompt \`.md\` files contain:
+1. Unescaped backticks
+2. Unescaped template literal syntax (\`${}`)
+3. Windows CRLF line endings
+
 A patcher script is needed to fix these problems in bulk before applying.
 
 ## 2. Goals & Non-Goals
 
 **Must do:**
 - Accept a directory path (prompt interactively if not provided via \`-Path\`)
-- Escape unescaped backticks in \`.md\` files (\`\` \` \`\` → \`\` \` \`\`)
+- Escape unescaped backticks in \`.md\` files (\`\` → \`\`)
+- Escape template literal syntax (\`${} → \`${}) to prevent JS injection
 - Convert CRLF to LF line endings in all text files
 - Extensible design: easy to add new fixers
 - Print summary of changes per fixer
-- Don't overfix: skip already-escaped backticks, skip files that are already LF
+- Don't overfix: skip already-escaped patterns, skip files that are already LF
 
 **Won't do:**
 - Dry-run mode (apply immediately)
@@ -35,7 +39,9 @@ Script startup
 \`\`\`
 
 **Fixer pipeline:**
-1. **Escape backticks** — \`.md\` files only. Regex: replace \`\` \` \`\` not preceded by \`\`.
+1. **Escape backticks & \`${}** — \`.md\` files only.
+   - Replace \` not preceded by \`\\ → \`\`
+   - Replace \`${} not preceded by \`\\ → \${}
 2. **Fix line endings** — All text files. Replace \`\r\n\` with \`\n\`.
 
 The old \`utils/fix-line-endings.ps1\` is deleted — its logic is absorbed into fixer #2.
@@ -86,8 +92,9 @@ Summary:
 
 ## 6. Risks & Edge Cases
 
-- **Already-escaped backticks**: Regex uses negative lookbehind \`(?<!\\)\` to skip \`\`\` — prevents double-escaping.
+- **Already-escaped patterns**: Regex uses negative lookbehind \`(?<!\\)\` for backticks and \`(?<!\\)\${} for template syntax — prevents double-escaping.
 - **Backticks inside code blocks**: These still get escaped. tweakcc requires ALL backticks escaped, including those in fenced code blocks (the log confirms \`\`\` \`\`\` \`\`\` itself triggers errors). This is correct behavior.
+- **Template literal in source files**: \`${} must be escaped to \${} to prevent JavaScript syntax errors when bundled into cli.js. This was the root cause of the original CLI crash.
 - **Binary files**: Skipped via extension list (same as fix-line-endings.ps1).
 - **Empty files**: Read returns empty string — no modification needed, skip gracefully.
 - **Read-only files**: \`$ErrorActionPreference = "Continue"\` — log error, continue to next file.

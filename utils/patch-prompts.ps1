@@ -6,8 +6,15 @@ param([string]$Path)
 function Invoke-EscapeBackticks {
     param([string]$Text)
     if (-not $Text) { return $Text }
+
     # Negative lookbehind: match ` not preceded by \
-    return [regex]::Replace($Text, '(?<!\\)`', '\`')
+    $result = [regex]::Replace($Text, '(?<!\\)`', '\`')
+
+    # Escape template literal syntax ${ -> ${
+    # Match ${ not preceded by backslash
+    $result = [regex]::Replace($result, '(?<!\\)\${', '\${')
+
+    return $result
 }
 
 function Invoke-FixLineEndings {
