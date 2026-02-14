@@ -54,3 +54,39 @@ Describe "Invoke-FixLineEndings" {
         $result | Should Be ''
     }
 }
+
+Describe "Get-PatchableFiles" {
+    $testDir = Join-Path $TestDrive "patchtest"
+
+    BeforeEach {
+        # Create test directory structure
+        New-Item -ItemType Directory -Path $testDir -Force | Out-Null
+        New-Item -ItemType Directory -Path "$testDir\.git" -Force | Out-Null
+        New-Item -ItemType Directory -Path "$testDir\sub" -Force | Out-Null
+
+        # Text files (should be found)
+        "hello" | Set-Content "$testDir\readme.md"
+        "world" | Set-Content "$testDir\sub\notes.txt"
+
+        # Binary file (should be skipped)
+        [byte[]]@(0,1,2) | Set-Content "$testDir\image.png" -Encoding Byte
+
+        # File inside .git (should be skipped)
+        "gitfile" | Set-Content "$testDir\.git\config"
+    }
+
+    It "finds text files recursively" {
+        $files = Get-PatchableFiles -Path $testDir
+        $files.Count | Should Be 2
+    }
+
+    It "skips .git directory" {
+        $files = Get-PatchableFiles -Path $testDir
+        ($files | Where-Object { $_.FullName -like "*\.git\*" }).Count | Should Be 0
+    }
+
+    It "skips binary extensions" {
+        $files = Get-PatchableFiles -Path $testDir
+        ($files | Where-Object { $_.Extension -eq ".png" }).Count | Should Be 0
+    }
+}
