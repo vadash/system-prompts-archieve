@@ -113,3 +113,42 @@ def generate_report(folder_name: str, results: list[PatchResult], scan: ScanResu
             lines.append(f"- [WARNING] File in prompt but not tweak: {f}")
 
     return "\n".join(lines)
+
+
+def main() -> None:
+    """CLI entry point."""
+    import sys
+
+    prompt_folder = input("Enter prompt folder (e.g., 2171): ").strip()
+    prompt_path = Path(prompt_folder).resolve()
+
+    tweak_folder = input("Enter tweak folder (e.g., tmp): ").strip()
+    tweak_path = Path(tweak_folder).resolve()
+
+    if not prompt_path.is_dir():
+        print(f"Error: '{prompt_path}' is not a directory.", file=sys.stderr)
+        sys.exit(1)
+    if not tweak_path.is_dir():
+        print(f"Error: '{tweak_path}' is not a directory.", file=sys.stderr)
+        sys.exit(1)
+
+    scan = scan_folders(prompt_path, tweak_path)
+
+    for f in scan.orphaned_tweaks:
+        print(f"[WARNING] File in tweak but not prompt: {tweak_path / f}")
+    for f in scan.missing_tweaks:
+        print(f"[WARNING] File in prompt but not tweak: {prompt_path / f}")
+
+    results = []
+    for filename in scan.matching:
+        result = patch_file(prompt_path / filename, tweak_path / filename)
+        results.append(result)
+
+    report_path = Path(f"{prompt_path.name}.md")
+    content = generate_report(prompt_path.name, results, scan)
+    report_path.write_text(content, encoding="utf-8")
+    print(f"Report written to: {report_path}")
+
+
+if __name__ == "__main__":
+    main()

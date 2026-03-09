@@ -137,3 +137,48 @@ def test_generate_report_sorted():
     # Check that orphaned and missing are in report
     assert "orphan.txt" in report
     assert "missing.md" in report
+
+def test_main_integration(tmp_path, monkeypatch, capsys):
+    """Test full CLI flow with mocked input."""
+    from override_prompts import main
+
+    # Setup directories
+    prompt_dir = tmp_path / "2171"
+    prompt_dir.mkdir()
+    (prompt_dir / "file1.md").write_text("<!--Header1-->\nbody1", encoding="utf-8")
+    (prompt_dir / "file2.md").write_text("<!--Header2-->\nbody2", encoding="utf-8")
+
+    tweak_dir = tmp_path / "tmp"
+    tweak_dir.mkdir()
+    (tweak_dir / "file1.md").write_text("<!--TweakHeader-->\nnew_body1", encoding="utf-8")
+    (tweak_dir / "file2.md").write_text("new_body2", encoding="utf-8")
+
+    # Change to tmp_path so report file is created there
+    monkeypatch.chdir(tmp_path)
+
+    # Mock input to return our test directories
+    inputs = iter([str(prompt_dir), str(tweak_dir)])
+    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+
+    # Run
+    main()
+
+    # Capture output
+    captured = capsys.readouterr()
+
+    # Check warnings printed
+    assert "Report written to:" in captured.out
+
+    # Check report file exists
+    report_file = tmp_path / "2171.md"
+    assert report_file.exists()
+
+    report_content = report_file.read_text(encoding="utf-8")
+    assert "- [x] file1.md" in report_content
+    assert "- [x] file2.md" in report_content
+
+    # Check file1 was patched correctly
+    file1_content = (prompt_dir / "file1.md").read_text(encoding="utf-8")
+    assert "Header1" in file1_content  # Original header preserved
+    assert "new_body1" in file1_content  # Tweak body applied
+    assert "TweakHeader" not in file1_content  # Tweak header removed
