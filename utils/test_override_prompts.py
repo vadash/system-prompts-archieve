@@ -24,3 +24,23 @@ New tweaked content here."""
 @pytest.fixture
 def tweak_content_no_header():
     return "Plain content without any header."
+
+def test_extract_header_with_valid_header(sample_prompt_content):
+    """Test extracting header from content with valid header."""
+    from override_prompts import extract_header
+
+    header, body = extract_header(sample_prompt_content)
+
+    assert "<!--" in header
+    assert "-->" in header
+    assert "name: 'Test Prompt'" in header
+    assert body.strip() == "Original body content here."
+
+def test_extract_header_no_header():
+    """Test extracting header from content without header."""
+    from override_prompts import extract_header
+
+    header, body = extract_header("Just body content here")
+
+    assert header == ""
+    assert body == "Just body content here"
