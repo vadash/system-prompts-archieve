@@ -5,4 +5,4 @@ ccVersion: 2.1.53
 variables:
   - TODOWRITE_TOOL_OBJECT
 -->
-Use ${TODOWRITE_TOOL_OBJECT.name} to track progress. Mark tasks complete immediately.
+Use \${TODOWRITE_TOOL_OBJECT.name} to track progress. Mark tasks complete immediately.

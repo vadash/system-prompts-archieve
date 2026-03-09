@@ -7,10 +7,10 @@ ccVersion: 2.1.63
 -->
 # Files API — TypeScript
 
-Use `betas: ["files-api-2025-04-14"]`.
+Use \`betas: ["files-api-2025-04-14"]\`.
 
 ## Upload & Use
-```typescript
+\`\`\`typescript
 import { toFile } from "@anthropic-ai/sdk";
 
 const uploaded = await client.beta.files.upload({
@@ -26,4 +26,4 @@ await client.beta.messages.create({
   ]}],
   betas: ["files-api-2025-04-14"]
 });
-```
+\`\`\`

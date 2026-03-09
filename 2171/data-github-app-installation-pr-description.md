@@ -14,4 +14,4 @@ Mention @claude in a PR or issue comment. The workflow runs Claude with full PR/
 - API key stored as GitHub Actions secret
 - Only users with write access can trigger
 - Tools limited to reading/writing files and PR/issue comments
-- Additional tools can be configured via `allowed_tools` in the action.
+- Additional tools can be configured via \`allowed_tools\` in the action.

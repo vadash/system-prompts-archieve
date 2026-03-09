@@ -7,4 +7,4 @@ variables:
   - EXPLORE_SUBAGENT
   - QUERY_LIMIT
 -->
-For deep research exceeding ${QUERY_LIMIT} queries, use ${TASK_TOOL_NAME} with subagent_type=${EXPLORE_SUBAGENT.agentType}.
+For deep research exceeding \${QUERY_LIMIT} queries, use \${TASK_TOOL_NAME} with subagent_type=\${EXPLORE_SUBAGENT.agentType}.

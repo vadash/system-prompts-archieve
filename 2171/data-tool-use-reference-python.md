@@ -8,7 +8,7 @@ ccVersion: 2.1.69
 # Tool Use — Python
 
 ## Tool Runner (Beta)
-```python
+\`\`\`python
 from anthropic import beta_tool
 @beta_tool
 def get_weather(location: str) -> str: return f"Sunny in {location}"
@@ -18,13 +18,13 @@ runner = client.beta.messages.tool_runner(
     messages=[{"role": "user", "content": "Weather in Paris?"}]
 )
 for msg in runner: print(msg)
-```
+\`\`\`
 
 ## Manual Loop
-Append `response.content`, construct `tool_result` blocks matching `tool_use_id`, handle `pause_turn`.
+Append \`response.content\`, construct \`tool_result\` blocks matching \`tool_use_id\`, handle \`pause_turn\`.
 
 ## Structured Outputs (Pydantic)
-```python
+\`\`\`python
 from pydantic import BaseModel
 class Contact(BaseModel): name: str
 
@@ -34,4 +34,4 @@ response = client.messages.parse(
     output_format=Contact
 )
 print(response.parsed_output.name)
-```
+\`\`\`

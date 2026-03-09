@@ -6,9 +6,9 @@ variables:
   - ATTRIBUTION_TEXT
 -->
 ## Context
-- Status: !`git status`
-- Diff: !`git diff HEAD`
-- Branch: !`git branch --show-current`
+- Status: !\`git status\`
+- Diff: !\`git diff HEAD\`
+- Branch: !\`git branch --show-current\`
 
 ## Git Safety Protocol
 - NEVER run destructive/irreversible git commands.
@@ -18,10 +18,10 @@ variables:
 ## Task
 1. Draft a concise commit message.
 2. Stage files and commit using HEREDOC:
-```
+\`\`\`
 git commit -m "$(cat <<'EOF'
-Commit message here.${ATTRIBUTION_TEXT?`\n\n${ATTRIBUTION_TEXT}`:""}
+Commit message here.\${ATTRIBUTION_TEXT?\`\n\n\${ATTRIBUTION_TEXT}\`:""}
 EOF
 )"
-```
+\`\`\`
 Do this in a single tool call message.

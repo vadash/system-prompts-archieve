@@ -5,4 +5,4 @@ ccVersion: 2.1.71
 variables:
   - BASH_TOOL_NAME
 -->
-Use `find` or `grep` via ${BASH_TOOL_NAME} directly for simple codebase searches.
+Use \`find\` or \`grep\` via \${BASH_TOOL_NAME} directly for simple codebase searches.

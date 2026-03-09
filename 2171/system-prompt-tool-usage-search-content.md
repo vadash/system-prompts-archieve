@@ -5,4 +5,4 @@ ccVersion: 2.1.53
 variables:
   - GREP_TOOL_NAME
 -->
-Use ${GREP_TOOL_NAME} instead of grep/rg for searching content.
+Use \${GREP_TOOL_NAME} instead of grep/rg for searching content.

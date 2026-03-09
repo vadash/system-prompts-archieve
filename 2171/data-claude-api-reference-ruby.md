@@ -8,30 +8,30 @@ ccVersion: 2.1.71
 # Claude API — Ruby
 
 ## Installation & Initialization
-```bash
+\`\`\`bash
 gem install anthropic
-```
-```ruby
+\`\`\`
+\`\`\`ruby
 require "anthropic"
 client = Anthropic::Client.new
-```
+\`\`\`
 
 ## Basic Request
-```ruby
+\`\`\`ruby
 msg = client.messages.create(
   model: :"{{OPUS_ID}}", max_tokens: 1024,
   messages: [{ role: "user", content: "Hello" }]
 )
-```
+\`\`\`
 
 ## Streaming
-```ruby
+\`\`\`ruby
 stream = client.messages.stream(...)
 stream.text.each { |text| print(text) }
-```
+\`\`\`
 
 ## Tool Runner (Beta)
-```ruby
+\`\`\`ruby
 class GetWeatherInput < Anthropic::BaseModel
   required :location, String
 end
@@ -46,4 +46,4 @@ client.beta.messages.tool_runner(
   tools: [GetWeather.new],
   messages: [...]
 ).each_message { |m| puts m.content }
-```
+\`\`\`

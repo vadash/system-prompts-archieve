@@ -8,4 +8,4 @@ ccVersion: 2.1.69
 Create or update the statusLine command in Claude Code settings.
 
 If converting PS1, use PowerShell equivalent commands where possible, or translate standard bash escapes.
-Update ~/.claude/settings.json with `{"statusLine": {"type": "command", "command": "..."}}`.
+Update ~/.claude/settings.json with \`{"statusLine": {"type": "command", "command": "..."}}\`.

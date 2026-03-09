@@ -10,12 +10,12 @@ ccVersion: 2.1.63
 Use WebFetch to retrieve these URLs when user needs the latest info.
 
 ## Claude API URLs
-- **Models/Pricing:** `https://platform.claude.com/docs/en/about-claude/models/overview.md`, `https://platform.claude.com/docs/en/pricing.md`
-- **Features:** `https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking.md`, `.../tool-use/overview.md`, `.../prompt-caching.md`
-- **Media:** `.../vision.md`, `.../pdf-support.md`
-- **Endpoints:** `.../batch-processing.md`, `.../files.md`
-- **Advanced:** `.../structured-outputs.md`, `.../compaction.md`
+- **Models/Pricing:** \`https://platform.claude.com/docs/en/about-claude/models/overview.md\`, \`https://platform.claude.com/docs/en/pricing.md\`
+- **Features:** \`https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking.md\`, \`.../tool-use/overview.md\`, \`.../prompt-caching.md\`
+- **Media:** \`.../vision.md\`, \`.../pdf-support.md\`
+- **Endpoints:** \`.../batch-processing.md\`, \`.../files.md\`
+- **Advanced:** \`.../structured-outputs.md\`, \`.../compaction.md\`
 
 ## SDK GitHub Repos
-- Python: `https://github.com/anthropics/anthropic-sdk-python`
-- TypeScript: `https://github.com/anthropics/anthropic-sdk-typescript`
+- Python: \`https://github.com/anthropics/anthropic-sdk-python\`
+- TypeScript: \`https://github.com/anthropics/anthropic-sdk-typescript\`

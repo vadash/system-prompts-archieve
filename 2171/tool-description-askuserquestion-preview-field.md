@@ -6,4 +6,4 @@ description: >-
   diagrams
 ccVersion: 2.1.69
 -->
-Use `preview` for HTML mockups, code snippets, or diagrams on single-select options. Must be self-contained HTML (no scripts).
+Use \`preview\` for HTML mockups, code snippets, or diagrams on single-select options. Must be self-contained HTML (no scripts).

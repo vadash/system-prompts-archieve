@@ -7,10 +7,10 @@ variables:
 -->
 Fetch and display comments from a GitHub pull request.
 
-1. `gh pr view --json number,headRepository`
-2. `gh api /repos/{owner}/{repo}/issues/{number}/comments`
-3. `gh api /repos/{owner}/{repo}/pulls/{number}/comments`
+1. \`gh pr view --json number,headRepository\`
+2. \`gh api /repos/{owner}/{repo}/issues/{number}/comments\`
+3. \`gh api /repos/{owner}/{repo}/pulls/{number}/comments\`
 
 Format comments preserving threading, including file/line context and diff hunks. Return ONLY the formatted comments.
 
-${ADDITIONAL_USER_INPUT?"Additional user input: "+ADDITIONAL_USER_INPUT:""}
+\${ADDITIONAL_USER_INPUT?"Additional user input: "+ADDITIONAL_USER_INPUT:""}

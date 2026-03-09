@@ -5,4 +5,4 @@ ccVersion: 2.1.18
 variables:
   - ATTACHMENT_OBJECT
 -->
-${ATTACHMENT_OBJECT.hookName} hook success: ${ATTACHMENT_OBJECT.content}
+\${ATTACHMENT_OBJECT.hookName} hook success: \${ATTACHMENT_OBJECT.content}

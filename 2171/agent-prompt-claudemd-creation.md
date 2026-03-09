@@ -15,8 +15,8 @@ Notes:
 - Do not include obvious instructions.
 - Avoid generic development practices.
 - Prefix the file with:
-```
+\`\`\`
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-```
+\`\`\`

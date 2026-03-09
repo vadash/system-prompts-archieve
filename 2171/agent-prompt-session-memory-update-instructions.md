@@ -18,6 +18,6 @@ CRITICAL RULES:
 - Skip sections with no new insights.
 - Write detailed, info-dense content.
 - Always update "Current State".
-- Keep sections under ~${MAX_SECTION_TOKENS} tokens.
+- Keep sections under ~\${MAX_SECTION_TOKENS} tokens.
 
 Use the Edit tool in parallel and stop.

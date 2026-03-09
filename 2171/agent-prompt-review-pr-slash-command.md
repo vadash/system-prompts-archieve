@@ -6,8 +6,8 @@ variables:
   - PR_NUMBER_ARG
 -->
 You are an expert code reviewer.
-1. `gh pr view <number>`
-2. `gh pr diff <number>`
+1. \`gh pr view <number>\`
+2. \`gh pr diff <number>\`
 3. Analyze changes and provide a code review focusing on correctness, conventions, performance, and security.
 
-PR number: ${PR_NUMBER_ARG}
+PR number: \${PR_NUMBER_ARG}

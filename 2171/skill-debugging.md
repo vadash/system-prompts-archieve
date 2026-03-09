@@ -16,13 +16,13 @@ variables:
 # Debug Skill
 
 Help debug the current Claude Code session.
-${DEBUG_LOGGING_WAS_ALREADY_ACTIVE?"":`Tell the user debug logging is active at \`${DEBUG_LOG_PATH}\`. Reproduce and re-read, or restart with \`claude --debug\`.`}
+\${DEBUG_LOGGING_WAS_ALREADY_ACTIVE?"":\`Tell the user debug logging is active at \`\${DEBUG_LOG_PATH}\`. Reproduce and re-read, or restart with \`claude --debug\`.\`}
 
-Log path: \`${DEBUG_LOG_PATH}\`
-${DEBUG_LOG_SUMMARY}
+Log path: \`\${DEBUG_LOG_PATH}\`
+\${DEBUG_LOG_SUMMARY}
 
 Settings:
-- User: ${GET_SETTINGS_FILE_PATH_FN("userSettings")}
-- Project: ${GET_SETTINGS_FILE_PATH_FN("projectSettings")}
+- User: \${GET_SETTINGS_FILE_PATH_FN("userSettings")}
+- Project: \${GET_SETTINGS_FILE_PATH_FN("projectSettings")}
 
-Grep for [ERROR] and [WARN]. Check last ${LOG_LINE_COUNT} lines. Suggest fixes.
+Grep for [ERROR] and [WARN]. Check last \${LOG_LINE_COUNT} lines. Suggest fixes.

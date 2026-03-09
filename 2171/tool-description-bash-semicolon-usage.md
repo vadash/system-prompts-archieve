@@ -5,4 +5,4 @@ description: >-
   failure does not
 ccVersion: 2.1.53
 -->
-Use `;` when order matters but failure doesn't.
+Use \`;\` when order matters but failure doesn't.

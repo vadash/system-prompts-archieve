@@ -7,10 +7,10 @@ ccVersion: 2.1.63
 -->
 # Files API — Python
 
-Use `betas=["files-api-2025-04-14"]`. Max 500MB per file.
+Use \`betas=["files-api-2025-04-14"]\`. Max 500MB per file.
 
 ## Upload & Use
-```python
+\`\`\`python
 uploaded = client.beta.files.upload(
     file=("report.pdf", open("report.pdf", "rb"), "application/pdf")
 )
@@ -23,11 +23,11 @@ response = client.beta.messages.create(
     ]}],
     betas=["files-api-2025-04-14"]
 )
-```
+\`\`\`
 
 ## Manage
-```python
+\`\`\`python
 files = client.beta.files.list()
 client.beta.files.delete(uploaded.id)
 file_content = client.beta.files.download(file_id) # Only for code-execution outputs
-```
+\`\`\`

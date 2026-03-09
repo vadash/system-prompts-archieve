@@ -7,4 +7,4 @@ variables:
   - BASH_TOOL_NAME
   - TASK_TOOL_NAME
 -->
-Ripgrep content search. Use ${GREP_TOOL_NAME}, not bash.
+Ripgrep content search. Use \${GREP_TOOL_NAME}, not bash.

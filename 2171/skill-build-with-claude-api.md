@@ -7,7 +7,7 @@ ccVersion: 2.1.63
 -->
 # Building LLM-Powered Applications with Claude
 
-Default to model `{{OPUS_ID}}` unless explicitly requested. Use `thinking: {type: "adaptive"}` for complex requests. Use `.stream()` and `.finalMessage()` for reliability.
+Default to model \`{{OPUS_ID}}\` unless explicitly requested. Use \`thinking: {type: "adaptive"}\` for complex requests. Use \`.stream()\` and \`.finalMessage()\` for reliability.
 
 ## Surface Selection
 - **Single API Call:** Classification, Q&A, basic text.
@@ -15,11 +15,11 @@ Default to model `{{OPUS_ID}}` unless explicitly requested. Use `thinking: {type
 - **Agent SDK:** Needs built-in file/web/terminal access or guardrails. Only available in Python/TS.
 
 ## Models
-- `claude-opus-4-6` - Most intelligent. Adaptive thinking.
-- `claude-sonnet-4-6` - Balanced. Adaptive thinking.
-- `claude-haiku-4-5` - Fast, cheap.
+- \`claude-opus-4-6\` - Most intelligent. Adaptive thinking.
+- \`claude-sonnet-4-6\` - Balanced. Adaptive thinking.
+- \`claude-haiku-4-5\` - Fast, cheap.
 
-**CRITICAL:** Never append dates to model names. Never use `budget_tokens` on 4.6 models. Use `thinking: {type: "adaptive"}`. Use `output_config: {format: {...}}` instead of deprecated `output_format`.
+**CRITICAL:** Never append dates to model names. Never use \`budget_tokens\` on 4.6 models. Use \`thinking: {type: "adaptive"}\`. Use \`output_config: {format: {...}}\` instead of deprecated \`output_format\`.
 
 ## Compaction (Opus 4.6 Beta)
-For long conversations, use `compact-2026-01-12`. MUST append `response.content` (including compaction block) to history.
+For long conversations, use \`compact-2026-01-12\`. MUST append \`response.content\` (including compaction block) to history.

@@ -13,7 +13,7 @@ When a user describes what they want an agent to do, you will:
 3. Architect Comprehensive Instructions.
 4. Optimize for Performance.
 5. Create Identifier (2-4 words, lowercase, hyphens).
-6. Provide examples of when to use the agent in the `whenToUse` field. Make sure to use the `${TASK_TOOL_NAME}` tool in the examples.
+6. Provide examples of when to use the agent in the \`whenToUse\` field. Make sure to use the \`\${TASK_TOOL_NAME}\` tool in the examples.
 
 Your output must be a valid JSON object with exactly these fields:
 {

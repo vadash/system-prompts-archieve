@@ -5,5 +5,5 @@ ccVersion: 2.1.18
 variables:
   - ATTACHMENT_OBJECT
 -->
-Note: ${ATTACHMENT_OBJECT.filename} modified externally. Do not revert.
-${ATTACHMENT_OBJECT.snippet}
+Note: \${ATTACHMENT_OBJECT.filename} modified externally. Do not revert.
+\${ATTACHMENT_OBJECT.snippet}

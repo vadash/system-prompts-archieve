@@ -7,9 +7,9 @@ variables:
 -->
 Summarize the RECENT messages only. Do not summarize earlier retained context.
 
-${ANALYSIS_INSTRUCTION_TAGS}
+\${ANALYSIS_INSTRUCTION_TAGS}
 
-Include in `<summary>`:
+Include in \`<summary>\`:
 1. Primary Request and Intent
 2. Key Technical Concepts
 3. Files and Code Sections
@@ -20,4 +20,4 @@ Include in `<summary>`:
 8. Current Work
 9. Optional Next Step
 
-Wrap analysis in `<analysis>`.
+Wrap analysis in \`<analysis>\`.

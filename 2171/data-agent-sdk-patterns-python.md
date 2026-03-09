@@ -9,7 +9,7 @@ ccVersion: 2.1.71
 
 ## Basic Agent
 
-```python
+\`\`\`python
 import anyio
 from claude_agent_sdk import query, ClaudeAgentOptions, ResultMessage
 
@@ -25,11 +25,11 @@ async def main():
             print(message.result)
 
 anyio.run(main)
-```
+\`\`\`
 
 ## Custom Tools
 
-```python
+\`\`\`python
 import anyio
 from claude_agent_sdk import (
     tool, create_sdk_mcp_server, ClaudeSDKClient, ClaudeAgentOptions, AssistantMessage, TextBlock
@@ -51,11 +51,11 @@ async def main():
                     if isinstance(block, TextBlock): print(block.text)
 
 anyio.run(main)
-```
+\`\`\`
 
 ## Hooks
 
-```python
+\`\`\`python
 import anyio
 from datetime import datetime
 from claude_agent_sdk import query, ClaudeAgentOptions, HookMatcher, ResultMessage
@@ -77,11 +77,11 @@ async def main():
         if isinstance(message, ResultMessage): print(message.result)
 
 anyio.run(main)
-```
+\`\`\`
 
 ## Subagents
 
-```python
+\`\`\`python
 import anyio
 from claude_agent_sdk import query, ClaudeAgentOptions, AgentDefinition, ResultMessage
 
@@ -102,19 +102,19 @@ async def main():
         if isinstance(message, ResultMessage): print(message.result)
 
 anyio.run(main)
-```
+\`\`\`
 
 ## MCP Server Integration
 
 ### Browser Automation (Playwright)
-```python
+\`\`\`python
         options=ClaudeAgentOptions(
             mcp_servers={"playwright": {"command": "npx", "args": ["@playwright/mcp@latest"]}}
         )
-```
+\`\`\`
 
 ### Database Access (PostgreSQL)
-```python
+\`\`\`python
         options=ClaudeAgentOptions(
             mcp_servers={
                 "postgres": {
@@ -124,11 +124,11 @@ anyio.run(main)
                 }
             }
         )
-```
+\`\`\`
 
 ## Permission Modes
 
-```python
+\`\`\`python
         options=ClaudeAgentOptions(
             allowed_tools=["Bash"],
             permission_mode="default"  # Prompts for dangerous operations
@@ -144,11 +144,11 @@ anyio.run(main)
             permission_mode="bypassPermissions", # Skip all prompts
             allow_dangerously_skip_permissions=True
         )
-```
+\`\`\`
 
 ## Error Recovery
 
-```python
+\`\`\`python
 import anyio
 from claude_agent_sdk import query, ClaudeAgentOptions, CLINotFoundError, CLIConnectionError, ProcessError, ResultMessage
 
@@ -164,11 +164,11 @@ async def run_with_recovery():
     except ProcessError as e: print(f"Process error: {e}")
 
 anyio.run(run_with_recovery)
-```
+\`\`\`
 
 ## Session Resumption
 
-```python
+\`\`\`python
 import anyio
 from claude_agent_sdk import query, ClaudeAgentOptions, ResultMessage, SystemMessage
 
@@ -181,11 +181,11 @@ async def main():
         if isinstance(message, ResultMessage): print(message.result)
 
 anyio.run(main)
-```
+\`\`\`
 
 ## Session History
 
-```python
+\`\`\`python
 import anyio
 from claude_agent_sdk import list_sessions, get_session_messages
 
@@ -196,13 +196,13 @@ async def main():
         for msg in messages: print(msg)
 
 anyio.run(main)
-```
+\`\`\`
 
 ## Custom System Prompt
 
-```python
+\`\`\`python
         options=ClaudeAgentOptions(
             allowed_tools=["Read", "Glob", "Grep"],
             system_prompt="You are a senior code reviewer..."
         )
-```
+\`\`\`

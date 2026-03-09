@@ -17,9 +17,9 @@ Modify Claude Code settings.json files.
 Use AskUserQuestion for ambiguity (user vs project settings, array merges).
 
 **Merge Example:**
-```json
+\`\`\`json
 { "permissions": { "allow": ["Bash(git:*)", "Bash(npm:*)"] } }
-```
+\`\`\`
 
-${SETTINGS_FILE_LOCATION_PROMPT}
-${HOOKS_CONFIGURATION_PROMPT}
+\${SETTINGS_FILE_LOCATION_PROMPT}
+\${HOOKS_CONFIGURATION_PROMPT}

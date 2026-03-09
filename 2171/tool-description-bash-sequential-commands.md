@@ -5,4 +5,4 @@ ccVersion: 2.1.53
 variables:
   - BASH_TOOL_NAME
 -->
-Chain dependent commands with `&&`.
+Chain dependent commands with \`&&\`.

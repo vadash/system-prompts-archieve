@@ -14,4 +14,4 @@ variables:
 NEVER run destructive commands without permission. Use HEREDOC for commit bodies.
 
 # PRs
-Use `gh` CLI. Return PR URL.
+Use \`gh\` CLI. Return PR URL.

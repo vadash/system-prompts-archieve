@@ -11,11 +11,11 @@ Use TodoWrite tool to track progress.
 
 **Phase 1:** Auto-detect project areas (web, CLI, API), frameworks, test tools.
 **Phase 2:** Ask user about installing tools (Playwright, Chrome MCP). Run install if agreed.
-**Phase 3:** Ask user for specific commands, URLs, ready-signals, auth requirements. Suggest name like `verifier-frontend-playwright`.
-**Phase 4:** Write skill to `.claude/skills/<name>/SKILL.md`.
+**Phase 3:** Ask user for specific commands, URLs, ready-signals, auth requirements. Suggest name like \`verifier-frontend-playwright\`.
+**Phase 4:** Write skill to \`.claude/skills/<name>/SKILL.md\`.
 
 **Template:**
-```markdown
+\`\`\`markdown
 ---
 name: <verifier-name>
 description: <description based on type>
@@ -32,4 +32,4 @@ Execute verification exactly as written.
 
 ## Cleanup
 <Close processes>
-```
+\`\`\`

@@ -7,12 +7,12 @@ ccVersion: 2.1.63
 -->
 # Message Batches API — Python
 
-`POST /v1/messages/batches` processes API requests asynchronously at 50% of standard prices.
+\`POST /v1/messages/batches\` processes API requests asynchronously at 50% of standard prices.
 - Up to 100,000 requests or 256 MB per batch
 - Results available for 29 days
 
 ## Create a Batch
-```python
+\`\`\`python
 import anthropic
 from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
 from anthropic.types.messages.batch_create_params import Request
@@ -30,33 +30,33 @@ batch = client.messages.batches.create(
     ]
 )
 print(batch.id)
-```
+\`\`\`
 
 ## Poll for Completion
-```python
+\`\`\`python
 import time
 while True:
     batch = client.messages.batches.retrieve(batch.id)
     if batch.processing_status == "ended": break
     time.sleep(60)
-```
+\`\`\`
 
 ## Retrieve Results
-```python
+\`\`\`python
 for result in client.messages.batches.results(batch.id):
     if result.result.type == "succeeded":
         print(f"[{result.custom_id}] {result.result.message.content[0].text[:100]}")
     elif result.result.type == "errored":
         print(f"[{result.custom_id}] Error: {result.result.error.type}")
-```
+\`\`\`
 
 ## Cancel a Batch
-```python
+\`\`\`python
 client.messages.batches.cancel(batch.id)
-```
+\`\`\`
 
 ## Batch with Prompt Caching
-```python
+\`\`\`python
 shared_system = [{"type": "text", "text": "...", "cache_control": {"type": "ephemeral"}}]
 # Apply this system array to params for cost savings
-```
+\`\`\`

@@ -6,5 +6,5 @@ variables:
   - SCRATCHPAD_DIR_FN
 -->
 # Scratchpad Directory
-Always use this scratchpad directory for temporary files instead of `/tmp`:
-`${SCRATCHPAD_DIR_FN()}`
+Always use this scratchpad directory for temporary files instead of \`/tmp\`:
+\`\${SCRATCHPAD_DIR_FN()}\`

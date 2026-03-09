@@ -6,4 +6,4 @@ variables:
   - MAX_TIMEOUT_MS
   - DEFAULT_TIMEOUT_MS
 -->
-Default timeout ${DEFAULT_TIMEOUT_MS()}ms. Max ${MAX_TIMEOUT_MS()}ms.
+Default timeout \${DEFAULT_TIMEOUT_MS()}ms. Max \${MAX_TIMEOUT_MS()}ms.

@@ -9,7 +9,7 @@ ccVersion: 2.1.71
 
 ## Basic Agent
 
-```typescript
+\`\`\`typescript
 import { query } from "@anthropic-ai/claude-agent-sdk";
 
 async function main() {
@@ -21,17 +21,17 @@ async function main() {
   }
 }
 main();
-```
+\`\`\`
 
 ## Hooks
 
-```typescript
+\`\`\`typescript
 import { query, HookCallback } from "@anthropic-ai/claude-agent-sdk";
 import { appendFileSync } from "fs";
 
 const logFileChange: HookCallback = async (input) => {
   const filePath = (input as any).tool_input?.file_path ?? "unknown";
-  appendFileSync("./audit.log", `${new Date().toISOString()}: modified ${filePath}\n`);
+  appendFileSync("./audit.log", \`\${new Date().toISOString()}: modified \${filePath}\n\`);
   return {};
 };
 
@@ -45,11 +45,11 @@ for await (const message of query({
 })) {
   if ("result" in message) console.log(message.result);
 }
-```
+\`\`\`
 
 ## Subagents
 
-```typescript
+\`\`\`typescript
 import { query } from "@anthropic-ai/claude-agent-sdk";
 
 for await (const message of query({
@@ -67,11 +67,11 @@ for await (const message of query({
 })) {
   if ("result" in message) console.log(message.result);
 }
-```
+\`\`\`
 
 ## MCP Server Integration
 
-```typescript
+\`\`\`typescript
 for await (const message of query({
   prompt: "Open example.com",
   options: {
@@ -80,11 +80,11 @@ for await (const message of query({
 })) {
   if ("result" in message) console.log(message.result);
 }
-```
+\`\`\`
 
 ## Session Resumption
 
-```typescript
+\`\`\`typescript
 import { query } from "@anthropic-ai/claude-agent-sdk";
 
 let sessionId: string | undefined;
@@ -102,11 +102,11 @@ for await (const message of query({
 })) {
   if ("result" in message) console.log(message.result);
 }
-```
+\`\`\`
 
 ## Session History
 
-```typescript
+\`\`\`typescript
 import { listSessions, getSessionMessages } from "@anthropic-ai/claude-agent-sdk";
 
 async function main() {
@@ -117,18 +117,18 @@ async function main() {
   }
 }
 main();
-```
+\`\`\`
 
 ## Custom System Prompt
 
-```typescript
+\`\`\`typescript
 for await (const message of query({
   prompt: "Review this code",
   options: {
     allowedTools: ["Read", "Glob", "Grep"],
-    systemPrompt: `You are a senior code reviewer...`,
+    systemPrompt: \`You are a senior code reviewer...\`,
   },
 })) {
   if ("result" in message) console.log(message.result);
 }
-```
+\`\`\`

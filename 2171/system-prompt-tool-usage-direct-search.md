@@ -6,4 +6,4 @@ variables:
   - GLOB_TOOL_NAME
   - GREP_TOOL_NAME
 -->
-Use ${GLOB_TOOL_NAME} / ${GREP_TOOL_NAME} directly for simple searches.
+Use \${GLOB_TOOL_NAME} / \${GREP_TOOL_NAME} directly for simple searches.

@@ -8,18 +8,18 @@ ccVersion: 2.1.51
 # Claude API — C#
 
 ## Installation
-```bash
+\`\`\`bash
 dotnet add package Anthropic
-```
+\`\`\`
 
 ## Initialization
-```csharp
+\`\`\`csharp
 using Anthropic;
 AnthropicClient client = new(); // Uses ANTHROPIC_API_KEY
-```
+\`\`\`
 
 ## Basic Request
-```csharp
+\`\`\`csharp
 using Anthropic.Models.Messages;
 
 var msg = await client.Messages.Create(new MessageCreateParams {
@@ -28,16 +28,16 @@ var msg = await client.Messages.Create(new MessageCreateParams {
     Messages = [new() { Role = Role.User, Content = "Hello" }]
 });
 Console.WriteLine(msg);
-```
+\`\`\`
 
 ## Streaming
-```csharp
+\`\`\`csharp
 await foreach (var streamEvent in client.Messages.CreateStreaming(params)) {
     if (streamEvent.TryPickContentBlockDelta(out var delta) && delta.Delta.TryPickText(out var text)) {
         Console.Write(text.Text);
     }
 }
-```
+\`\`\`
 
 ## Tool Use
 The C# SDK supports manual loops and JSON schema tool definitions. Use Microsoft.Extensions.AI IChatClient for advanced function invocation.

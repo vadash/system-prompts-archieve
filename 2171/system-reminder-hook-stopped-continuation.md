@@ -5,4 +5,4 @@ ccVersion: 2.1.18
 variables:
   - ATTACHMENT_OBJECT
 -->
-${ATTACHMENT_OBJECT.hookName} hook stopped continuation: ${ATTACHMENT_OBJECT.message}
+\${ATTACHMENT_OBJECT.hookName} hook stopped continuation: \${ATTACHMENT_OBJECT.message}
