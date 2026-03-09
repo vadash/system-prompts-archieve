@@ -59,3 +59,27 @@ def scan_folders(prompt_dir: Path, tweak_dir: Path) -> ScanResult:
         orphaned_tweaks=orphaned_tweaks,
         missing_tweaks=missing_tweaks,
     )
+
+
+def patch_file(prompt_path: Path, tweak_path: Path) -> PatchResult:
+    """
+    Patch a single prompt file with content from tweak file.
+
+    1. Read prompt file, extract header
+    2. Read tweak file, extract body (skip header if present)
+    3. Combine and write back to prompt file
+    """
+    prompt_content = prompt_path.read_text(encoding="utf-8")
+    tweak_content = tweak_path.read_text(encoding="utf-8")
+
+    original_header, _ = extract_header(prompt_content)
+    _, tweak_body = extract_header(tweak_content)
+
+    new_content = f"{original_header}\n{tweak_body}"
+    prompt_path.write_text(new_content, encoding="utf-8")
+
+    return PatchResult(
+        filename=prompt_path.name,
+        was_patched=True,
+        original_header=original_header or None,
+    )

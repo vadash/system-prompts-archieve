@@ -68,3 +68,44 @@ def test_scan_folders(tmp_path):
     assert sorted(result.matching) == ["file1.md", "file2.md"]
     assert result.orphaned_tweaks == ["only_in_tweak.txt"]
     assert result.missing_tweaks == ["only_in_prompt.md"]
+
+def test_patch_file_preserves_header(tmp_path, sample_prompt_content, sample_tweak_content):
+    """Test that patching preserves original header."""
+    from override_prompts import patch_file
+
+    # Create prompt and tweak files
+    prompt_file = tmp_path / "test.md"
+    prompt_file.write_text(sample_prompt_content, encoding="utf-8")
+
+    tweak_file = tmp_path / "tweak.md"
+    tweak_file.write_text(sample_tweak_content, encoding="utf-8")
+
+    # Patch
+    result = patch_file(prompt_file, tweak_file)
+
+    # Verify
+    assert result.was_patched is True
+    assert result.filename == "test.md"
+    assert "name: 'Test Prompt'" in result.original_header
+
+    patched_content = prompt_file.read_text(encoding="utf-8")
+    assert patched_content.startswith("<!--")
+    assert "name: 'Test Prompt'" in patched_content  # Original header
+    assert "New tweaked content here" in patched_content  # Tweak body
+    assert "Different Name" not in patched_content  # Tweak header removed
+
+def test_patch_file_tweak_no_header(tmp_path, sample_prompt_content, tweak_content_no_header):
+    """Test patching when tweak has no header."""
+    from override_prompts import patch_file
+
+    prompt_file = tmp_path / "test.md"
+    prompt_file.write_text(sample_prompt_content, encoding="utf-8")
+
+    tweak_file = tmp_path / "tweak.md"
+    tweak_file.write_text(tweak_content_no_header, encoding="utf-8")
+
+    result = patch_file(prompt_file, tweak_file)
+
+    patched_content = prompt_file.read_text(encoding="utf-8")
+    assert "name: 'Test Prompt'" in patched_content
+    assert "Plain content without any header" in patched_content
