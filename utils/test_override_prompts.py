@@ -1,7 +1,8 @@
-"""Tests for override_prompts.py"""
+"""Tests for override_prompts.py - multi-file tweak format."""
 
 from pathlib import Path
 import pytest
+
 
 @pytest.fixture
 def sample_prompt_content():
@@ -12,18 +13,27 @@ ccVersion: 2.1.0
 -->
 Original body content here."""
 
-@pytest.fixture
-def sample_tweak_content():
-    return """<!--
-name: 'Different Name'
-description: 'Different description'
-ccVersion: 9.9.9
--->
-New tweaked content here."""
 
 @pytest.fixture
-def tweak_content_no_header():
-    return "Plain content without any header."
+def multi_file_tweak_content():
+    return """<file path="file1.md">
+<!--
+name: 'File 1'
+-->
+New content for file 1.
+</file>
+
+<file path="file2.md">
+Plain content without header for file 2.
+</file>
+
+<file path="subdir/file3.md">
+<!--
+name: 'File 3'
+-->
+Content for file 3 in subdirectory.
+</file>"""
+
 
 def test_extract_header_with_valid_header(sample_prompt_content):
     """Test extracting header from content with valid header."""
@@ -36,6 +46,7 @@ def test_extract_header_with_valid_header(sample_prompt_content):
     assert "name: 'Test Prompt'" in header
     assert body.strip() == "Original body content here."
 
+
 def test_extract_header_no_header():
     """Test extracting header from content without header."""
     from override_prompts import extract_header
@@ -45,45 +56,46 @@ def test_extract_header_no_header():
     assert header == ""
     assert body == "Just body content here"
 
-def test_scan_folders(tmp_path):
-    """Test scanning two folders for file matching."""
-    from override_prompts import scan_folders
 
-    # Create prompt folder with files
-    prompt_dir = tmp_path / "prompt"
-    prompt_dir.mkdir()
-    (prompt_dir / "file1.md").write_text("prompt1")
-    (prompt_dir / "file2.md").write_text("prompt2")
-    (prompt_dir / "only_in_prompt.md").write_text("only_prompt")
+def test_parse_tweak_file(multi_file_tweak_content):
+    """Test parsing multi-file tweak format."""
+    from override_prompts import parse_tweak_file
 
-    # Create tweak folder with files
-    tweak_dir = tmp_path / "tweak"
-    tweak_dir.mkdir()
-    (tweak_dir / "file1.md").write_text("tweak1")
-    (tweak_dir / "file2.md").write_text("tweak2")
-    (tweak_dir / "only_in_tweak.txt").write_text("only_tweak")
+    patches = parse_tweak_file(multi_file_tweak_content)
 
-    result = scan_folders(prompt_dir, tweak_dir)
+    assert len(patches) == 3
+    assert "file1.md" in patches
+    assert "file2.md" in patches
+    assert "subdir/file3.md" in patches
 
-    assert sorted(result.matching) == ["file1.md", "file2.md"]
-    assert result.orphaned_tweaks == ["only_in_tweak.txt"]
-    assert result.missing_tweaks == ["only_in_prompt.md"]
+    # Check content preservation
+    assert "New content for file 1" in patches["file1.md"]
+    assert "Plain content without header" in patches["file2.md"]
+    assert "Content for file 3 in subdirectory" in patches["subdir/file3.md"]
 
-def test_patch_file_preserves_header(tmp_path, sample_prompt_content, sample_tweak_content):
+
+def test_parse_tweak_file_empty():
+    """Test parsing empty tweak file."""
+    from override_prompts import parse_tweak_file
+
+    patches = parse_tweak_file("")
+    assert patches == {}
+
+
+def test_patch_file_preserves_header(tmp_path, sample_prompt_content):
     """Test that patching preserves original header."""
     from override_prompts import patch_file
 
-    # Create prompt and tweak files
     prompt_file = tmp_path / "test.md"
     prompt_file.write_text(sample_prompt_content, encoding="utf-8")
 
-    tweak_file = tmp_path / "tweak.md"
-    tweak_file.write_text(sample_tweak_content, encoding="utf-8")
+    tweak_content = """<!--
+name: 'Different Name'
+-->
+New body content."""
 
-    # Patch
-    result = patch_file(prompt_file, tweak_file)
+    result = patch_file(prompt_file, tweak_content)
 
-    # Verify
     assert result.was_patched is True
     assert result.filename == "test.md"
     assert "name: 'Test Prompt'" in result.original_header
@@ -91,83 +103,110 @@ def test_patch_file_preserves_header(tmp_path, sample_prompt_content, sample_twe
     patched_content = prompt_file.read_text(encoding="utf-8")
     assert patched_content.startswith("<!--")
     assert "name: 'Test Prompt'" in patched_content  # Original header
-    assert "New tweaked content here" in patched_content  # Tweak body
+    assert "New body content" in patched_content  # Tweak body
     assert "Different Name" not in patched_content  # Tweak header removed
 
-def test_patch_file_tweak_no_header(tmp_path, sample_prompt_content, tweak_content_no_header):
-    """Test patching when tweak has no header."""
-    from override_prompts import patch_file
 
-    prompt_file = tmp_path / "test.md"
-    prompt_file.write_text(sample_prompt_content, encoding="utf-8")
+def test_collect_all_tweaks(tmp_path):
+    """Test collecting tweaks from multiple files."""
+    from override_prompts import collect_all_tweaks
 
-    tweak_file = tmp_path / "tweak.md"
-    tweak_file.write_text(tweak_content_no_header, encoding="utf-8")
+    # Create multiple tweak files
+    (tmp_path / "tweak1.txt").write_text("""<file path="file1.md">Content 1</file>
+<file path="file2.md">Content 2</file>""", encoding="utf-8")
 
-    result = patch_file(prompt_file, tweak_file)
+    (tmp_path / "tweak2.txt").write_text("""<file path="file3.md">Content 3</file>
+<file path="file1.md">Content 1 overridden</file>""", encoding="utf-8")
 
-    patched_content = prompt_file.read_text(encoding="utf-8")
-    assert "name: 'Test Prompt'" in patched_content
-    assert "Plain content without any header" in patched_content
+    patches = collect_all_tweaks(tmp_path)
 
-def test_generate_report_sorted():
-    """Test that report is sorted by checkbox then alphabetically."""
-    from override_prompts import generate_report, ScanResult, PatchResult
+    assert len(patches) == 3
+    assert patches["file1.md"] == "Content 1 overridden"  # Later file wins
+    assert patches["file2.md"] == "Content 2"
+    assert patches["file3.md"] == "Content 3"
 
-    scan = ScanResult(
-        matching=["zebra.md", "apple.md", "middle.md"],
-        orphaned_tweaks=["orphan.txt"],
-        missing_tweaks=["missing.md"],
-    )
+
+def test_scan_and_patch(tmp_path, sample_prompt_content):
+    """Test full scan and patch workflow."""
+    from override_prompts import scan_and_patch
+
+    # Setup prompt directory
+    prompt_dir = tmp_path / "prompts"
+    prompt_dir.mkdir()
+    (prompt_dir / "file1.md").write_text(sample_prompt_content, encoding="utf-8")
+    (prompt_dir / "file2.md").write_text("<!--Header2-->\nbody2", encoding="utf-8")
+    (prompt_dir / "only_in_prompt.md").write_text("content", encoding="utf-8")
+
+    # Setup tweak directory
+    tweak_dir = tmp_path / "tweaks"
+    tweak_dir.mkdir()
+    (tweak_dir / "tweaks.txt").write_text("""<file path="file1.md">New content 1</file>
+<file path="file2.md">New content 2</file>
+<file path="not_in_prompt.md">Orphan tweak</file>""", encoding="utf-8")
+
+    results, not_found_in_prompt, not_found_in_tweak = scan_and_patch(prompt_dir, tweak_dir)
+
+    # Check results
+    assert len(results) == 2
+    assert all(r.was_patched for r in results)
+    assert [r.filename for r in results] == ["file1.md", "file2.md"]
+
+    # Check not found
+    assert not_found_in_prompt == ["not_in_prompt.md"]
+    assert not_found_in_tweak == ["only_in_prompt.md"]
+
+    # Verify file1 was patched correctly
+    file1_content = (prompt_dir / "file1.md").read_text(encoding="utf-8")
+    assert "name: 'Test Prompt'" in file1_content  # Original header
+    assert "New content 1" in file1_content  # Tweak body
+
+
+def test_generate_report():
+    """Test report generation."""
+    from override_prompts import generate_report, PatchResult
 
     results = [
         PatchResult(filename="zebra.md", was_patched=True, original_header="<!-- -->"),
         PatchResult(filename="apple.md", was_patched=True, original_header="<!-- -->"),
-        PatchResult(filename="middle.md", was_patched=False, original_header=None),
+        PatchResult(filename="middle.md", was_patched=False, original_header=None, error="Some error"),
     ]
 
-    report = generate_report("test_folder", results, scan)
+    report = generate_report("test", results, ["orphan.md"], ["missing.md"])
     lines = report.strip().split("\n")
 
-    # Check order: checked items first, alphabetically, then unchecked
+    # Check order: patched first, alphabetically
     assert lines[0] == "- [x] apple.md"
     assert lines[1] == "- [x] zebra.md"
-    assert lines[2] == "- [ ] middle.md"
+    assert "- [ ] middle.md (ERROR: Some error)" in lines[2]
 
-    # Check that orphaned and missing are in report
-    assert "orphan.txt" in report
+    # Check warnings
+    assert "orphan.md" in report
     assert "missing.md" in report
 
+
 def test_main_integration(tmp_path, monkeypatch, capsys):
-    """Test full CLI flow with mocked input."""
+    """Test full CLI flow."""
     from override_prompts import main
 
     # Setup directories
     prompt_dir = tmp_path / "2171"
     prompt_dir.mkdir()
     (prompt_dir / "file1.md").write_text("<!--Header1-->\nbody1", encoding="utf-8")
-    (prompt_dir / "file2.md").write_text("<!--Header2-->\nbody2", encoding="utf-8")
 
     tweak_dir = tmp_path / "tmp"
     tweak_dir.mkdir()
-    (tweak_dir / "file1.md").write_text("<!--TweakHeader-->\nnew_body1", encoding="utf-8")
-    (tweak_dir / "file2.md").write_text("new_body2", encoding="utf-8")
+    (tweak_dir / "tweaks.txt").write_text('<file path="file1.md">new_body1</file>', encoding="utf-8")
 
-    # Change to tmp_path so report file is created there
     monkeypatch.chdir(tmp_path)
 
-    # Mock input to return our test directories
     inputs = iter([str(prompt_dir), str(tweak_dir)])
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
 
-    # Run
     main()
 
-    # Capture output
     captured = capsys.readouterr()
-
-    # Check warnings printed
     assert "Report written to:" in captured.out
+    assert "Patched 1 files" in captured.out
 
     # Check report file exists
     report_file = tmp_path / "2171.md"
@@ -175,10 +214,8 @@ def test_main_integration(tmp_path, monkeypatch, capsys):
 
     report_content = report_file.read_text(encoding="utf-8")
     assert "- [x] file1.md" in report_content
-    assert "- [x] file2.md" in report_content
 
-    # Check file1 was patched correctly
+    # Check file was patched
     file1_content = (prompt_dir / "file1.md").read_text(encoding="utf-8")
-    assert "Header1" in file1_content  # Original header preserved
-    assert "new_body1" in file1_content  # Tweak body applied
-    assert "TweakHeader" not in file1_content  # Tweak header removed
+    assert "Header1" in file1_content
+    assert "new_body1" in file1_content
