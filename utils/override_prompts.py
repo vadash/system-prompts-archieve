@@ -83,3 +83,33 @@ def patch_file(prompt_path: Path, tweak_path: Path) -> PatchResult:
         was_patched=True,
         original_header=original_header or None,
     )
+
+
+def generate_report(folder_name: str, results: list[PatchResult], scan: ScanResult) -> str:
+    """
+    Generate markdown report content.
+
+    Format:
+    - [x] filename.md  (for patched files)
+    - [ ] filename.md  (for not patched)
+
+    Sorted: checked first, then alphabetically.
+    """
+    lines = []
+
+    # Sort by was_patched (True first) then alphabetically
+    sorted_results = sorted(results, key=lambda r: (not r.was_patched, r.filename))
+
+    for r in sorted_results:
+        checkbox = "[x]" if r.was_patched else "[ ]"
+        lines.append(f"- {checkbox} {r.filename}")
+
+    # Add warnings section if any mismatches
+    if scan.orphaned_tweaks or scan.missing_tweaks:
+        lines.append("\n## Warnings")
+        for f in scan.orphaned_tweaks:
+            lines.append(f"- [WARNING] File in tweak but not prompt: {f}")
+        for f in scan.missing_tweaks:
+            lines.append(f"- [WARNING] File in prompt but not tweak: {f}")
+
+    return "\n".join(lines)

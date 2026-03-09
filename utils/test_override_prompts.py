@@ -109,3 +109,31 @@ def test_patch_file_tweak_no_header(tmp_path, sample_prompt_content, tweak_conte
     patched_content = prompt_file.read_text(encoding="utf-8")
     assert "name: 'Test Prompt'" in patched_content
     assert "Plain content without any header" in patched_content
+
+def test_generate_report_sorted():
+    """Test that report is sorted by checkbox then alphabetically."""
+    from override_prompts import generate_report, ScanResult, PatchResult
+
+    scan = ScanResult(
+        matching=["zebra.md", "apple.md", "middle.md"],
+        orphaned_tweaks=["orphan.txt"],
+        missing_tweaks=["missing.md"],
+    )
+
+    results = [
+        PatchResult(filename="zebra.md", was_patched=True, original_header="<!-- -->"),
+        PatchResult(filename="apple.md", was_patched=True, original_header="<!-- -->"),
+        PatchResult(filename="middle.md", was_patched=False, original_header=None),
+    ]
+
+    report = generate_report("test_folder", results, scan)
+    lines = report.strip().split("\n")
+
+    # Check order: checked items first, alphabetically, then unchecked
+    assert lines[0] == "- [x] apple.md"
+    assert lines[1] == "- [x] zebra.md"
+    assert lines[2] == "- [ ] middle.md"
+
+    # Check that orphaned and missing are in report
+    assert "orphan.txt" in report
+    assert "missing.md" in report
