@@ -5,4 +5,4 @@ ccVersion: 2.1.53
 variables:
   - EDIT_TOOL_NAME
 -->
-To edit files use ${EDIT_TOOL_NAME} instead of sed or awk
+To edit files, use ${EDIT_TOOL_NAME} instead of sed/awk.

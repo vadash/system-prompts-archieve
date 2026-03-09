@@ -6,4 +6,4 @@ variables:
   - GLOB_TOOL_NAME
   - GREP_TOOL_NAME
 -->
-For simple, directed codebase searches (e.g. for a specific file/class/function) use the ${GLOB_TOOL_NAME} or ${GREP_TOOL_NAME} directly.
+Use ${GLOB_TOOL_NAME} / ${GREP_TOOL_NAME} directly for simple searches.

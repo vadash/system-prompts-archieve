@@ -5,4 +5,4 @@ description: >-
   failure does not
 ccVersion: 2.1.53
 -->
-Use ';' only when you need to run commands sequentially but don't care if earlier commands fail.
+Use `;` when order matters but failure doesn't.

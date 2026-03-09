@@ -9,4 +9,4 @@ variables:
   - GREP_TOOL_NAME
   - QUERY_LIMIT
 -->
-For broader codebase exploration and deep research, use the ${TASK_TOOL_NAME} tool with subagent_type=${EXPLORE_SUBAGENT.agentType}. This is slower than calling ${GLOB_TOOL_NAME} or ${GREP_TOOL_NAME} directly so use this only when a simple, directed search proves to be insufficient or when your task will clearly require more than ${QUERY_LIMIT} queries.
+For deep research exceeding ${QUERY_LIMIT} queries, use ${TASK_TOOL_NAME} with subagent_type=${EXPLORE_SUBAGENT.agentType} instead of ${GLOB_TOOL_NAME} / ${GREP_TOOL_NAME}.

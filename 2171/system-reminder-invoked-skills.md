@@ -5,6 +5,5 @@ ccVersion: 2.1.18
 variables:
   - FORMATTED_SKILLS_LIST
 -->
-The following skills were invoked in this session. Continue to follow these guidelines:
-
+Skills invoked:
 ${FORMATTED_SKILLS_LIST}

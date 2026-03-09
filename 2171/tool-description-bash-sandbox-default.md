@@ -5,4 +5,4 @@ description: >-
   restriction
 ccVersion: 2.1.53
 -->
-You should always default to running commands within the sandbox. Do NOT attempt to set `dangerouslyDisableSandbox: true` unless:
+Default to sandbox mode.

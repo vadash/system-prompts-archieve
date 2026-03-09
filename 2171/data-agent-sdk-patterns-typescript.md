@@ -9,74 +9,57 @@ ccVersion: 2.1.71
 
 ## Basic Agent
 
-\`\`\`typescript
+```typescript
 import { query } from "@anthropic-ai/claude-agent-sdk";
 
 async function main() {
   for await (const message of query({
-    prompt: "Explain what this repository does",
-    options: {
-      cwd: "/path/to/project",
-      allowedTools: ["Read", "Glob", "Grep"],
-    },
+    prompt: "Explain this repository",
+    options: { cwd: "/path/to/project", allowedTools: ["Read", "Glob", "Grep"] },
   })) {
-    if ("result" in message) {
-      console.log(message.result);
-    }
+    if ("result" in message) console.log(message.result);
   }
 }
-
 main();
-\`\`\`
-
----
+```
 
 ## Hooks
 
-### After Tool Use Hook
-
-\`\`\`typescript
+```typescript
 import { query, HookCallback } from "@anthropic-ai/claude-agent-sdk";
 import { appendFileSync } from "fs";
 
 const logFileChange: HookCallback = async (input) => {
   const filePath = (input as any).tool_input?.file_path ?? "unknown";
-  appendFileSync(
-    "./audit.log",
-    \`\${new Date().toISOString()}: modified \${filePath}\\n\`,
-  );
+  appendFileSync("./audit.log", `${new Date().toISOString()}: modified ${filePath}\n`);
   return {};
 };
 
 for await (const message of query({
-  prompt: "Refactor utils.py to improve readability",
+  prompt: "Refactor utils.py",
   options: {
     allowedTools: ["Read", "Edit", "Write"],
     permissionMode: "acceptEdits",
-    hooks: {
-      PostToolUse: [{ matcher: "Edit|Write", hooks: [logFileChange] }],
-    },
+    hooks: { PostToolUse: [{ matcher: "Edit|Write", hooks: [logFileChange] }] },
   },
 })) {
   if ("result" in message) console.log(message.result);
 }
-\`\`\`
-
----
+```
 
 ## Subagents
 
-\`\`\`typescript
+```typescript
 import { query } from "@anthropic-ai/claude-agent-sdk";
 
 for await (const message of query({
-  prompt: "Use the code-reviewer agent to review this codebase",
+  prompt: "Use code-reviewer agent",
   options: {
     allowedTools: ["Read", "Glob", "Grep", "Agent"],
     agents: {
       "code-reviewer": {
-        description: "Expert code reviewer for quality and security reviews.",
-        prompt: "Analyze code quality and suggest improvements.",
+        description: "Expert code reviewer.",
+        prompt: "Analyze code quality.",
         tools: ["Read", "Glob", "Grep"],
       },
     },
@@ -84,100 +67,68 @@ for await (const message of query({
 })) {
   if ("result" in message) console.log(message.result);
 }
-\`\`\`
-
----
+```
 
 ## MCP Server Integration
 
-### Browser Automation (Playwright)
-
-\`\`\`typescript
+```typescript
 for await (const message of query({
-  prompt: "Open example.com and describe what you see",
+  prompt: "Open example.com",
   options: {
-    mcpServers: {
-      playwright: { command: "npx", args: ["@playwright/mcp@latest"] },
-    },
+    mcpServers: { playwright: { command: "npx", args: ["@playwright/mcp@latest"] } },
   },
 })) {
   if ("result" in message) console.log(message.result);
 }
-\`\`\`
-
----
+```
 
 ## Session Resumption
 
-\`\`\`typescript
+```typescript
 import { query } from "@anthropic-ai/claude-agent-sdk";
 
 let sessionId: string | undefined;
 
-// First query: capture the session ID
 for await (const message of query({
-  prompt: "Read the authentication module",
+  prompt: "Read auth module",
   options: { allowedTools: ["Read", "Glob"] },
 })) {
-  if (message.type === "system" && message.subtype === "init") {
-    sessionId = message.session_id;
-  }
+  if (message.type === "system" && message.subtype === "init") sessionId = message.session_id;
 }
 
-// Resume with full context from the first query
 for await (const message of query({
-  prompt: "Now find all places that call it",
+  prompt: "Find callers",
   options: { resume: sessionId },
 })) {
   if ("result" in message) console.log(message.result);
 }
-\`\`\`
-
----
+```
 
 ## Session History
 
-\`\`\`typescript
+```typescript
 import { listSessions, getSessionMessages } from "@anthropic-ai/claude-agent-sdk";
 
 async function main() {
-  // List past sessions
   const sessions = await listSessions();
-  for (const session of sessions) {
-    console.log(\`Session \${session.sessionId} in \${session.cwd}\`);
-  }
-
-  // Retrieve messages from the most recent session
   if (sessions.length > 0) {
     const messages = await getSessionMessages(sessions[0].sessionId, { limit: 50 });
-    for (const msg of messages) {
-      console.log(msg);
-    }
+    for (const msg of messages) console.log(msg);
   }
 }
-
 main();
-\`\`\`
-
----
+```
 
 ## Custom System Prompt
 
-\`\`\`typescript
-import { query } from "@anthropic-ai/claude-agent-sdk";
-
+```typescript
 for await (const message of query({
   prompt: "Review this code",
   options: {
     allowedTools: ["Read", "Glob", "Grep"],
-    systemPrompt: \`You are a senior code reviewer focused on:
-1. Security vulnerabilities
-2. Performance issues
-3. Code maintainability
-
-Always provide specific line numbers and suggestions for improvement.\`,
+    systemPrompt: `You are a senior code reviewer...`,
   },
 })) {
   if ("result" in message) console.log(message.result);
 }
-\`\`\`
+```

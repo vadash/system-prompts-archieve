@@ -5,4 +5,4 @@ ccVersion: 2.1.71
 variables:
   - BASH_TOOL_NAME
 -->
-For simple, directed codebase searches (e.g. for a specific file/class/function) use \`find\` or \`grep\` via the ${BASH_TOOL_NAME} tool directly.
+Use `find` or `grep` via ${BASH_TOOL_NAME} directly for simple codebase searches.
