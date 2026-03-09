@@ -39,3 +39,23 @@ def extract_header(content: str) -> tuple[str, str]:
         return header, body
 
     return "", content
+
+
+def scan_folders(prompt_dir: Path, tweak_dir: Path) -> ScanResult:
+    """
+    Scan both directories and categorize files.
+
+    Returns files that match, are only in tweak, or only in prompt.
+    """
+    prompt_files = {f.name for f in prompt_dir.iterdir() if f.is_file()}
+    tweak_files = {f.name for f in tweak_dir.iterdir() if f.is_file()}
+
+    matching = sorted(prompt_files & tweak_files)
+    orphaned_tweaks = sorted(tweak_files - prompt_files)
+    missing_tweaks = sorted(prompt_files - tweak_files)
+
+    return ScanResult(
+        matching=matching,
+        orphaned_tweaks=orphaned_tweaks,
+        missing_tweaks=missing_tweaks,
+    )
