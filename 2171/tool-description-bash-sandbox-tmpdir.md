@@ -5,4 +5,4 @@ ccVersion: 2.1.53
 variables:
   - SANDBOX_TMPDIR_FN
 -->
-Use \`$TMPDIR\` or \`\${SANDBOX_TMPDIR_FN()}\` for temp files.
+Use \`$TMPDIR\` or \`${SANDBOX_TMPDIR_FN()}\` for temp files.

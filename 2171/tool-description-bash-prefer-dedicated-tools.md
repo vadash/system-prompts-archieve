@@ -5,4 +5,4 @@ ccVersion: 2.1.71
 variables:
   - READ_ONLY_SEARCHING_BASH_COMMANDS
 -->
-Prefer dedicated tools over bash for \${READ_ONLY_SEARCHING_BASH_COMMANDS}.
+Prefer dedicated tools over bash for ${READ_ONLY_SEARCHING_BASH_COMMANDS}.

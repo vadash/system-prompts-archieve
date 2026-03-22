@@ -5,4 +5,4 @@ ccVersion: 2.1.53
 variables:
   - READ_TOOL_NAME
 -->
-To read files, use \${READ_TOOL_NAME} instead of cat/head/tail.
+To read files, use ${READ_TOOL_NAME} instead of cat/head/tail.

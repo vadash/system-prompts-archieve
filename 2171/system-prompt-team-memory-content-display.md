@@ -8,8 +8,8 @@ variables:
   - MEMORY_FILE
   - INSTRUCTIONS_TYPE
 -->
-Contents of \${MEMORY_FILE.path}\${INSTRUCTIONS_TYPE}:
+Contents of ${MEMORY_FILE.path}${INSTRUCTIONS_TYPE}:
 
 <team-memory-content source="shared">
-\${MEMORY_FILE.content}
+${MEMORY_FILE.content}
 </team-memory-content>

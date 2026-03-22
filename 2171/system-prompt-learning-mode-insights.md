@@ -6,4 +6,4 @@ variables:
   - ICONS_OBJECT
 -->
 Provide brief codebase-specific educational insights before/after code generation using format:
-\`\${ICONS_OBJECT.star} Insight ─────────────────────────────────────\`
+\`${ICONS_OBJECT.star} Insight ─────────────────────────────────────\`

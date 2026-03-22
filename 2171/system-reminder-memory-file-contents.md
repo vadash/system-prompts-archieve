@@ -6,5 +6,5 @@ variables:
   - MEMORY_ITEM
   - MEMORY_TYPE_DESCRIPTION
 -->
-Contents of \${MEMORY_ITEM.path}\${MEMORY_TYPE_DESCRIPTION}:
-\${MEMORY_ITEM.content}
+Contents of ${MEMORY_ITEM.path}${MEMORY_TYPE_DESCRIPTION}:
+${MEMORY_ITEM.content}

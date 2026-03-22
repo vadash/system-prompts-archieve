@@ -5,4 +5,4 @@ ccVersion: 2.1.53
 variables:
   - BASH_TOOL_NAME
 -->
-Prefer built-in tools over \${BASH_TOOL_NAME} for better UX.
+Prefer built-in tools over ${BASH_TOOL_NAME} for better UX.

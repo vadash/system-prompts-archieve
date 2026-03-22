@@ -5,5 +5,5 @@ ccVersion: 2.1.18
 variables:
   - ATTACHMENT_OBJECT
 -->
-Contents of \${ATTACHMENT_OBJECT.content.path}:
-\${ATTACHMENT_OBJECT.content.content}
+Contents of ${ATTACHMENT_OBJECT.content.path}:
+${ATTACHMENT_OBJECT.content.content}

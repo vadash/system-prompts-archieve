@@ -6,4 +6,4 @@ variables:
   - ATTACHMENT_OBJECT
   - READ_TOOL_OBJECT
 -->
-\${ATTACHMENT_OBJECT.filename} read before compaction. Use \${READ_TOOL_OBJECT.name} if needed.
+${ATTACHMENT_OBJECT.filename} read before compaction. Use ${READ_TOOL_OBJECT.name} if needed.

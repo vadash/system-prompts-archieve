@@ -11,7 +11,7 @@ variables:
   - RECENT_COMMITS
 -->
 Git status snapshot:
-Branch: \${CURRENT_BRANCH}
-Main: \${MAIN_BRANCH}
-Status: \${GIT_STATUS||"(clean)"}
-Recent commits: \${RECENT_COMMITS}
+Branch: ${CURRENT_BRANCH}
+Main: ${MAIN_BRANCH}
+Status: ${GIT_STATUS||"(clean)"}
+Recent commits: ${RECENT_COMMITS}

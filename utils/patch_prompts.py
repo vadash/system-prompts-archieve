@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Patch system-prompt files: escape backticks, fix line endings."""
+"""Patch system-prompt files: minimal backtick escape, fix line endings."""
 
 from __future__ import annotations
 
@@ -32,14 +32,72 @@ def fixer(name: str, filter: str = "*"):
 
 # --- Core text transforms ---
 
-def escape_backticks(text: str) -> str:
+def escape_backticks_in_content(text: str) -> str:
+    """Escape backticks that appear in content (not in code blocks).
+
+    Only escapes backticks that:
+    - Are not already escaped (not preceded by \\)
+    - Appear after a blank line or at start of content (not inside ``` blocks)
+    """
     if not text:
         return text
-    # Escape unescaped backticks (not preceded by \)
-    result = re.sub(r'(?<!\\)`', r'\`', text)
-    # Escape unescaped template literal ${ (not preceded by \)
-    result = re.sub(r'(?<!\\)\$\{', r'\${', result)
-    return result
+
+    # Split into frontmatter and content
+    lines = text.split('\n')
+    result_lines = []
+    in_frontmatter = False
+    in_code_block = False
+    frontmatter_started = False
+
+    for line in lines:
+        # Handle frontmatter
+        if line == '---':
+            if not frontmatter_started:
+                in_frontmatter = True
+                frontmatter_started = True
+            else:
+                in_frontmatter = False
+            result_lines.append(line)
+            continue
+
+        if in_frontmatter:
+            result_lines.append(line)
+            continue
+
+        # Handle code blocks
+        if line.strip().startswith('```'):
+            in_code_block = not in_code_block
+            result_lines.append(line)
+            continue
+
+        if in_code_block:
+            result_lines.append(line)
+            continue
+
+        # In regular content: escape unescaped backticks
+        # Only escape backticks that are standalone (not part of ${...})
+        result = re.sub(r'(?<!\\)(?<!\$)`', r'\`', line)
+        result_lines.append(result)
+
+    return '\n'.join(result_lines)
+
+
+def unescape_template_vars(text: str) -> str:
+    """Remove unnecessary escaping from ${...} template variables."""
+    if not text:
+        return text
+    # Convert \${ back to ${
+    return re.sub(r'\\\$\{', r'${', text)
+
+
+def ensure_trailing_newline(text: str) -> str:
+    """Ensure file ends with a newline."""
+    if not text:
+        return text
+    if not text.endswith('\n'):
+        return text + '\n'
+    return text
+
 
 def fix_line_endings(text: str) -> str:
     if not text:
@@ -93,14 +151,27 @@ def run_fixers(path: Path) -> None:
 
 # --- Registered fixers ---
 
-@fixer("Escape backticks", filter="*.md")
-def _fixer_escape_backticks(file_path: Path) -> bool:
+@fixer("Fix template variables", filter="*.md")
+def _fixer_unescape_templates(file_path: Path) -> bool:
+    r"""Remove \ escaping from ${...} variables."""
     content = file_path.read_text(encoding="utf-8")
-    fixed = escape_backticks(content)
+    fixed = unescape_template_vars(content)
     if fixed != content:
         file_path.write_text(fixed, encoding="utf-8")
         return True
     return False
+
+
+@fixer("Ensure trailing newline", filter="*.md")
+def _fixer_trailing_newline(file_path: Path) -> bool:
+    """Ensure files end with a newline."""
+    content = file_path.read_text(encoding="utf-8")
+    fixed = ensure_trailing_newline(content)
+    if fixed != content:
+        file_path.write_text(fixed, encoding="utf-8")
+        return True
+    return False
+
 
 @fixer("Fix line endings", filter="*")
 def _fixer_fix_line_endings(file_path: Path) -> bool:

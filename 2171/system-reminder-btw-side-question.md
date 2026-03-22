@@ -6,4 +6,4 @@ variables:
   - SIDE_QUESTION
 -->
 <system-reminder>Side question. Answer directly. No tools available. One-off response. Use existing context only.</system-reminder>
-\${SIDE_QUESTION}
+${SIDE_QUESTION}

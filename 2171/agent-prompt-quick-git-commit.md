@@ -20,7 +20,7 @@ variables:
 2. Stage files and commit using HEREDOC:
 \`\`\`
 git commit -m "$(cat <<'EOF'
-Commit message here.\${ATTRIBUTION_TEXT?\`\n\n\${ATTRIBUTION_TEXT}\`:""}
+Commit message here.${ATTRIBUTION_TEXT?\`\n\n${ATTRIBUTION_TEXT}\`:""}
 EOF
 )"
 \`\`\`

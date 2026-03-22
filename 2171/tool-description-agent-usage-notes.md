@@ -19,11 +19,11 @@ variables:
   - SUBAGENT_TYPE_DEFINITIONS
   - DEFAULT_AGENT_DESCRIPTION
 -->
-\${TOOL_BASE_DESCRIPTION}
-\${TOOL_PARAMETERS_DESCRIPTION}
+${TOOL_BASE_DESCRIPTION}
+${TOOL_PARAMETERS_DESCRIPTION}
 - Include short description.
 - Use \`isolation: "worktree"\` for isolated git state.
 - Run in background if work is independent. Do NOT poll.
 - Resume agents with agent ID.
 - Provide clear prompts so agent can work autonomously.
-\${HAS_SUBAGENT_TYPES?SUBAGENT_TYPE_DEFINITIONS:DEFAULT_AGENT_DESCRIPTION}
+${HAS_SUBAGENT_TYPES?SUBAGENT_TYPE_DEFINITIONS:DEFAULT_AGENT_DESCRIPTION}

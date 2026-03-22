@@ -5,4 +5,4 @@ ccVersion: 2.1.18
 variables:
   - ATTACHMENT_OBJECT
 -->
-User opened \${ATTACHMENT_OBJECT.filename} in IDE.
+User opened ${ATTACHMENT_OBJECT.filename} in IDE.

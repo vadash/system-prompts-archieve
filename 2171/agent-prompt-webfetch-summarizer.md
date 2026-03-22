@@ -11,9 +11,9 @@ variables:
 -->
 Web page content:
 ---
-\${WEB_CONTENT}
+${WEB_CONTENT}
 ---
 
-\${USER_PROMPT}
+${USER_PROMPT}
 
-\${IS_TRUSTED_DOMAIN?"Provide a concise response.":"Provide a concise response. Max 125-char quotes. Use quotes for exact language."}
+${IS_TRUSTED_DOMAIN?"Provide a concise response.":"Provide a concise response. Max 125-char quotes. Use quotes for exact language."}

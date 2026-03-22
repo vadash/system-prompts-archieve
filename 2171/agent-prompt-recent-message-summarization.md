@@ -7,7 +7,7 @@ variables:
 -->
 Summarize the RECENT messages only. Do not summarize earlier retained context.
 
-\${ANALYSIS_INSTRUCTION_TAGS}
+${ANALYSIS_INSTRUCTION_TAGS}
 
 Include in \`<summary>\`:
 1. Primary Request and Intent

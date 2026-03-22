@@ -16,12 +16,12 @@ variables:
   - PR_ATTRIBUTION_TEXT
   - ADDITIONAL_INSTRUCTIONS_NOTE
 -->
-\${PREAMBLE_BLOCK}## Context
+${PREAMBLE_BLOCK}## Context
 - \`git status\`: !\`git status\`
-- \`git diff \${DEFAULT_BRANCH}...HEAD\`: !\`git diff \${DEFAULT_BRANCH}...HEAD\`
+- \`git diff ${DEFAULT_BRANCH}...HEAD\`: !\`git diff ${DEFAULT_BRANCH}...HEAD\`
 
 ## Task
-1. Create new branch if on \${DEFAULT_BRANCH}.
+1. Create new branch if on ${DEFAULT_BRANCH}.
 2. Commit changes using HEREDOC.
 3. Push to remote.
 4. Update or create PR using \`gh pr create\` with HEREDOC for body. Keep title under 70 chars.

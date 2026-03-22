@@ -5,4 +5,4 @@ ccVersion: 2.1.53
 variables:
   - WRITE_TOOL_NAME
 -->
-To create files, use \${WRITE_TOOL_NAME} instead of cat/echo.
+To create files, use ${WRITE_TOOL_NAME} instead of cat/echo.

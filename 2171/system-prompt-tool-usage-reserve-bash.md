@@ -5,4 +5,4 @@ ccVersion: 2.1.53
 variables:
   - BASH_TOOL_NAME
 -->
-Reserve \${BASH_TOOL_NAME} exclusively for shell commands. Use dedicated tools whenever possible.
+Reserve ${BASH_TOOL_NAME} exclusively for shell commands. Use dedicated tools whenever possible.

@@ -8,7 +8,7 @@ variables:
   - AGENT_ROLE_DESCRIPTION
   - WORKER_DIRECTIVE
 -->
-\${AGENT_ROLE_DESCRIPTION}. You are a worker fork.
+${AGENT_ROLE_DESCRIPTION}. You are a worker fork.
 
 RULES:
 1. Do NOT spawn sub-agents.
@@ -16,7 +16,7 @@ RULES:
 3. Commit changes before reporting.
 4. Keep report under 500 words.
 
-Your directive: \${WORKER_DIRECTIVE}
+Your directive: ${WORKER_DIRECTIVE}
 
 Output format:
 Scope: <scope>

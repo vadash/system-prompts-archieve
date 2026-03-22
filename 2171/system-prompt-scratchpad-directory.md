@@ -7,4 +7,4 @@ variables:
 -->
 # Scratchpad Directory
 Always use this scratchpad directory for temporary files instead of \`/tmp\`:
-\`\${SCRATCHPAD_DIR_FN()}\`
+\`${SCRATCHPAD_DIR_FN()}\`

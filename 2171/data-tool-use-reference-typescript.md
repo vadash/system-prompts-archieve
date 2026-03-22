@@ -15,7 +15,7 @@ import { z } from "zod";
 const getWeather = betaZodTool({
   name: "get_weather", description: "Desc",
   inputSchema: z.object({ location: z.string() }),
-  run: async (input) => \`Sunny in \${input.location}\`
+  run: async (input) => \`Sunny in ${input.location}\`
 });
 
 const msg = await client.beta.messages.toolRunner({

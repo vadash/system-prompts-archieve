@@ -9,4 +9,4 @@ variables:
   - GREP_TOOL_NAME
   - QUERY_LIMIT
 -->
-For deep research exceeding \${QUERY_LIMIT} queries, use \${TASK_TOOL_NAME} with subagent_type=\${EXPLORE_SUBAGENT.agentType} instead of \${GLOB_TOOL_NAME} / \${GREP_TOOL_NAME}.
+For deep research exceeding ${QUERY_LIMIT} queries, use ${TASK_TOOL_NAME} with subagent_type=${EXPLORE_SUBAGENT.agentType} instead of ${GLOB_TOOL_NAME} / ${GREP_TOOL_NAME}.

@@ -5,4 +5,4 @@ ccVersion: 2.1.18
 variables:
   - GET_CWD_FN
 -->
-Continued from another machine. CWD: \${GET_CWD_FN()}
+Continued from another machine. CWD: ${GET_CWD_FN()}

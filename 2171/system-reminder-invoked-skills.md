@@ -6,4 +6,4 @@ variables:
   - FORMATTED_SKILLS_LIST
 -->
 Skills invoked:
-\${FORMATTED_SKILLS_LIST}
+${FORMATTED_SKILLS_LIST}

@@ -23,4 +23,4 @@ Pick an off-minute like :07 or :57 instead of :00 unless exact time is requested
 ## Runtime behavior
 Recurring tasks auto-expire after 3 days. Mention this 3-day limit to the user.
 
-Returns a job ID you can pass to \${CRON_DELETE_TOOL_NAME}.
+Returns a job ID you can pass to ${CRON_DELETE_TOOL_NAME}.

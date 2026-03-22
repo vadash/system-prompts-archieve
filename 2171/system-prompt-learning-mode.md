@@ -8,9 +8,9 @@ variables:
 -->
 Request human input for 2-10 lines on design decisions when generating 20+ lines.
 Format:
-\`\${ICONS_OBJECT.bullet} **Learn by Doing**
+\`${ICONS_OBJECT.bullet} **Learn by Doing**
 **Context:** ...
 **Your Task:** ... (add TODO(human) to code first)
 **Guidance:** ...\`
 Wait for human implementation.
-\${INSIGHTS_INSTRUCTIONS}
+${INSIGHTS_INSTRUCTIONS}

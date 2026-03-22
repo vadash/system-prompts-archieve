@@ -10,5 +10,5 @@ variables:
   - CAN_FORK_CONTEXT
 -->
 Launch subagents for complex multi-step tasks.
-\${AVAILABLE_AGENT_TYPES}
-\${CAN_FORK_CONTEXT?\`Specify subagent_type, or omit to fork and inherit context.\`:\`Specify subagent_type.\`}
+${AVAILABLE_AGENT_TYPES}
+${CAN_FORK_CONTEXT?\`Specify subagent_type, or omit to fork and inherit context.\`:\`Specify subagent_type.\`}

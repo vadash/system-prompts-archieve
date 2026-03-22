@@ -7,7 +7,7 @@ variables:
 -->
 Create a detailed summary of the conversation so far. Focus on technical details, code patterns, and architectural decisions.
 
-\${ANALYSIS_INSTRUCTION_TAGS}
+${ANALYSIS_INSTRUCTION_TAGS}
 
 Include these sections in your \`<summary>\`:
 1. Primary Request and Intent

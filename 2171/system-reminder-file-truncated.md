@@ -7,4 +7,4 @@ variables:
   - MAX_LINES_CONSTANT
   - READ_TOOL_OBJECT
 -->
-Note: \${ATTACHMENT_OBJECT.filename} truncated to \${MAX_LINES_CONSTANT} lines. Use \${READ_TOOL_OBJECT.name} to read more.
+Note: ${ATTACHMENT_OBJECT.filename} truncated to ${MAX_LINES_CONSTANT} lines. Use ${READ_TOOL_OBJECT.name} to read more.

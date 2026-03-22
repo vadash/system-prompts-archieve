@@ -8,4 +8,4 @@ variables:
   - AGENT_TOOL_NAME
 -->
 Example:
-When launching a fork via \${AGENT_TOOL_NAME}, turn ends there. Do NOT fabricate findings. Wait for the notification user message to arrive with the true result before proceeding.
+When launching a fork via ${AGENT_TOOL_NAME}, turn ends there. Do NOT fabricate findings. Wait for the notification user message to arrive with the true result before proceeding.

@@ -6,4 +6,4 @@ variables:
   - DIAGNOSTICS_SUMMARY
 -->
 <new-diagnostics>Diagnostics:
-\${DIAGNOSTICS_SUMMARY}</new-diagnostics>
+${DIAGNOSTICS_SUMMARY}</new-diagnostics>
