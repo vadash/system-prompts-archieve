@@ -5,4 +5,4 @@ ccVersion: 2.1.18
 variables:
   - ATTACHMENT_OBJECT
 -->
-Invoke agent "${ATTACHMENT_OBJECT.agentType}" with required context.
+The user has expressed a desire to invoke the agent "${ATTACHMENT_OBJECT.agentType}". Please invoke the agent appropriately, passing in the required context to it. 

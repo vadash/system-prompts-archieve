@@ -5,5 +5,6 @@ ccVersion: 2.1.18
 variables:
   - DIAGNOSTICS_SUMMARY
 -->
-<new-diagnostics>Diagnostics:
+<new-diagnostics>The following new diagnostic issues were detected:
+
 ${DIAGNOSTICS_SUMMARY}</new-diagnostics>

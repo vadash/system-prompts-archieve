@@ -9,6 +9,11 @@ variables:
   - AVAILABLE_AGENT_TYPES
   - CAN_FORK_CONTEXT
 -->
-Launch subagents for complex multi-step tasks.
+Launch a new agent to handle complex, multi-step tasks autonomously.
+
+The ${AGENT_TOOL_NAME} tool launches specialized agents (subprocesses) that autonomously handle complex tasks. Each agent type has specific capabilities and tools available to it.
+
+Available agent types and the tools they have access to:
 ${AVAILABLE_AGENT_TYPES}
-${CAN_FORK_CONTEXT?\`Specify subagent_type, or omit to fork and inherit context.\`:\`Specify subagent_type.\`}
+
+${CAN_FORK_CONTEXT?`When using the ${AGENT_TOOL_NAME} tool, specify a subagent_type to use a specialized agent, or omit it to fork yourself — a fork inherits your full conversation context.`:`When using the ${AGENT_TOOL_NAME} tool, specify a subagent_type parameter to select which agent type to use. If omitted, the general-purpose agent is used.`}

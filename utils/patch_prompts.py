@@ -33,53 +33,40 @@ def fixer(name: str, filter: str = "*"):
 # --- Core text transforms ---
 
 def escape_backticks_in_content(text: str) -> str:
-    """Escape backticks that appear in content (not in code blocks).
+    """Escape backticks that appear in content, but NOT inside ${...} expressions.
 
-    Only escapes backticks that:
-    - Are not already escaped (not preceded by \\)
-    - Appear after a blank line or at start of content (not inside ``` blocks)
+    Backticks inside ${...} template expressions should NOT be escaped because
+    they become part of JS template literals in claude-code's source code.
     """
     if not text:
         return text
 
-    # Split into frontmatter and content
-    lines = text.split('\n')
-    result_lines = []
-    in_frontmatter = False
-    in_code_block = False
-    frontmatter_started = False
+    result = []
+    i = 0
+    while i < len(text):
+        # Check if we're at the start of a ${...} expression
+        if text[i:i+2] == '${':
+            # Find the matching closing brace
+            brace_count = 1
+            j = i + 2
+            while j < len(text) and brace_count > 0:
+                if text[j] == '{':
+                    brace_count += 1
+                elif text[j] == '}':
+                    brace_count -= 1
+                j += 1
+            # Copy the entire ${...} expression as-is (don't escape backticks inside)
+            result.append(text[i:j])
+            i = j
+        elif text[i] == '`':
+            # Escape standalone backtick (not inside ${...})
+            result.append(r'\`')
+            i += 1
+        else:
+            result.append(text[i])
+            i += 1
 
-    for line in lines:
-        # Handle frontmatter
-        if line == '---':
-            if not frontmatter_started:
-                in_frontmatter = True
-                frontmatter_started = True
-            else:
-                in_frontmatter = False
-            result_lines.append(line)
-            continue
-
-        if in_frontmatter:
-            result_lines.append(line)
-            continue
-
-        # Handle code blocks
-        if line.strip().startswith('```'):
-            in_code_block = not in_code_block
-            result_lines.append(line)
-            continue
-
-        if in_code_block:
-            result_lines.append(line)
-            continue
-
-        # In regular content: escape unescaped backticks
-        # Only escape backticks that are standalone (not part of ${...})
-        result = re.sub(r'(?<!\\)(?<!\$)`', r'\`', line)
-        result_lines.append(result)
-
-    return '\n'.join(result_lines)
+    return ''.join(result)
 
 
 def unescape_template_vars(text: str) -> str:
@@ -88,6 +75,40 @@ def unescape_template_vars(text: str) -> str:
         return text
     # Convert \${ back to ${
     return re.sub(r'\\\$\{', r'${', text)
+
+
+def unescape_backticks_in_template_expressions(text: str) -> str:
+    """Unescape backticks that are inside ${...} expressions.
+
+    These should NOT be escaped because they become part of JS template literals.
+    """
+    if not text:
+        return text
+
+    result = []
+    i = 0
+    while i < len(text):
+        # Check if we're at the start of a ${...} expression
+        if text[i:i+2] == '${':
+            # Find the matching closing brace
+            brace_count = 1
+            j = i + 2
+            while j < len(text) and brace_count > 0:
+                if text[j] == '{':
+                    brace_count += 1
+                elif text[j] == '}':
+                    brace_count -= 1
+                j += 1
+            # Inside ${...}, unescape \` back to `
+            expr = text[i:j]
+            expr = expr.replace(r'\`', '`')
+            result.append(expr)
+            i = j
+        else:
+            result.append(text[i])
+            i += 1
+
+    return ''.join(result)
 
 
 def ensure_trailing_newline(text: str) -> str:
@@ -156,6 +177,17 @@ def _fixer_unescape_templates(file_path: Path) -> bool:
     r"""Remove \ escaping from ${...} variables."""
     content = file_path.read_text(encoding="utf-8")
     fixed = unescape_template_vars(content)
+    if fixed != content:
+        file_path.write_text(fixed, encoding="utf-8")
+        return True
+    return False
+
+
+@fixer("Unescape backticks in templates", filter="*.md")
+def _fixer_unescape_backticks_in_templates(file_path: Path) -> bool:
+    r"""Unescape \` back to ` inside ${...} expressions."""
+    content = file_path.read_text(encoding="utf-8")
+    fixed = unescape_backticks_in_template_expressions(content)
     if fixed != content:
         file_path.write_text(fixed, encoding="utf-8")
         return True

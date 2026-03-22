@@ -3,7 +3,7 @@ name: 'Data: Agent SDK patterns — Python'
 description: >-
   Python Agent SDK patterns including custom tools, hooks, subagents, MCP
   integration, and session resumption
-ccVersion: 2.1.71
+ccVersion: 2.1.78
 -->
 # Agent SDK Patterns — Python
 
@@ -27,17 +27,27 @@ async def main():
 anyio.run(main)
 \`\`\`
 
+---
+
 ## Custom Tools
+
+Custom tools require an MCP server. Use \`ClaudeSDKClient\` for full control (custom SDK MCP tools require \`ClaudeSDKClient\` — \`query()\` only supports external stdio/http MCP servers).
 
 \`\`\`python
 import anyio
 from claude_agent_sdk import (
-    tool, create_sdk_mcp_server, ClaudeSDKClient, ClaudeAgentOptions, AssistantMessage, TextBlock
+    tool,
+    create_sdk_mcp_server,
+    ClaudeSDKClient,
+    ClaudeAgentOptions,
+    AssistantMessage,
+    TextBlock,
 )
 
-@tool("get_weather", "Get current weather", {"location": str})
+@tool("get_weather", "Get the current weather for a location", {"location": str})
 async def get_weather(args):
-    return {"content": [{"type": "text", "text": f"Sunny and 72°F in {args['location']}."}]}
+    location = args["location"]
+    return {"content": [{"type": "text", "text": f"The weather in {location} is sunny and 72°F."}]}
 
 server = create_sdk_mcp_server("weather-tools", tools=[get_weather])
 
@@ -48,12 +58,19 @@ async def main():
         async for message in client.receive_response():
             if isinstance(message, AssistantMessage):
                 for block in message.content:
-                    if isinstance(block, TextBlock): print(block.text)
+                    if isinstance(block, TextBlock):
+                        print(block.text)
 
 anyio.run(main)
 \`\`\`
 
+---
+
 ## Hooks
+
+### After Tool Use Hook
+
+Log file changes after any edit:
 
 \`\`\`python
 import anyio
@@ -62,22 +79,28 @@ from claude_agent_sdk import query, ClaudeAgentOptions, HookMatcher, ResultMessa
 
 async def log_file_change(input_data, tool_use_id, context):
     file_path = input_data.get('tool_input', {}).get('file_path', 'unknown')
-    with open('./audit.log', 'a') as f: f.write(f"{datetime.now()}: modified {file_path}\n")
+    with open('./audit.log', 'a') as f:
+        f.write(f"{datetime.now()}: modified {file_path}\\n")
     return {}
 
 async def main():
     async for message in query(
-        prompt="Refactor utils.py",
+        prompt="Refactor utils.py to improve readability",
         options=ClaudeAgentOptions(
             allowed_tools=["Read", "Edit", "Write"],
             permission_mode="acceptEdits",
-            hooks={"PostToolUse": [HookMatcher(matcher="Edit|Write", hooks=[log_file_change])]}
+            hooks={
+                "PostToolUse": [HookMatcher(matcher="Edit|Write", hooks=[log_file_change])]
+            }
         )
     ):
-        if isinstance(message, ResultMessage): print(message.result)
+        if isinstance(message, ResultMessage):
+            print(message.result)
 
 anyio.run(main)
 \`\`\`
+
+---
 
 ## Subagents
 
@@ -87,34 +110,59 @@ from claude_agent_sdk import query, ClaudeAgentOptions, AgentDefinition, ResultM
 
 async def main():
     async for message in query(
-        prompt="Use the code-reviewer agent",
+        prompt="Use the code-reviewer agent to review this codebase",
         options=ClaudeAgentOptions(
             allowed_tools=["Read", "Glob", "Grep", "Agent"],
             agents={
                 "code-reviewer": AgentDefinition(
-                    description="Expert code reviewer.",
-                    prompt="Analyze code quality.",
+                    description="Expert code reviewer for quality and security reviews.",
+                    prompt="Analyze code quality and suggest improvements.",
                     tools=["Read", "Glob", "Grep"]
                 )
             }
         )
     ):
-        if isinstance(message, ResultMessage): print(message.result)
+        if isinstance(message, ResultMessage):
+            print(message.result)
 
 anyio.run(main)
 \`\`\`
 
+---
+
 ## MCP Server Integration
 
 ### Browser Automation (Playwright)
+
 \`\`\`python
+import anyio
+from claude_agent_sdk import query, ClaudeAgentOptions, ResultMessage
+
+async def main():
+    async for message in query(
+        prompt="Open example.com and describe what you see",
         options=ClaudeAgentOptions(
-            mcp_servers={"playwright": {"command": "npx", "args": ["@playwright/mcp@latest"]}}
+            mcp_servers={
+                "playwright": {"command": "npx", "args": ["@playwright/mcp@latest"]}
+            }
         )
+    ):
+        if isinstance(message, ResultMessage):
+            print(message.result)
+
+anyio.run(main)
 \`\`\`
 
 ### Database Access (PostgreSQL)
+
 \`\`\`python
+import os
+import anyio
+from claude_agent_sdk import query, ClaudeAgentOptions, ResultMessage
+
+async def main():
+    async for message in query(
+        prompt="Show me the top 10 users by order count",
         options=ClaudeAgentOptions(
             mcp_servers={
                 "postgres": {
@@ -124,47 +172,102 @@ anyio.run(main)
                 }
             }
         )
+    ):
+        if isinstance(message, ResultMessage):
+            print(message.result)
+
+anyio.run(main)
 \`\`\`
+
+---
 
 ## Permission Modes
 
 \`\`\`python
+import anyio
+from claude_agent_sdk import query, ClaudeAgentOptions
+
+async def main():
+    # Default: prompt for dangerous operations
+    async for message in query(
+        prompt="Delete all test files",
         options=ClaudeAgentOptions(
             allowed_tools=["Bash"],
-            permission_mode="default"  # Prompts for dangerous operations
+            permission_mode="default"  # Will prompt before deleting
         )
+    ):
+        pass
 
+    # Plan: agent creates a plan before making changes
+    async for message in query(
+        prompt="Refactor the auth system",
         options=ClaudeAgentOptions(
             allowed_tools=["Read", "Edit"],
-            permission_mode="acceptEdits" # Auto-accept file edits
+            permission_mode="plan"
         )
+    ):
+        pass
 
+    # Accept edits: auto-accept file edits
+    async for message in query(
+        prompt="Refactor this module",
+        options=ClaudeAgentOptions(
+            allowed_tools=["Read", "Edit"],
+            permission_mode="acceptEdits"
+        )
+    ):
+        pass
+
+    # Bypass: skip all prompts (use with caution)
+    async for message in query(
+        prompt="Set up the development environment",
         options=ClaudeAgentOptions(
             allowed_tools=["Bash", "Write"],
-            permission_mode="bypassPermissions", # Skip all prompts
-            allow_dangerously_skip_permissions=True
+            permission_mode="bypassPermissions"
         )
+    ):
+        pass
+
+anyio.run(main)
 \`\`\`
+
+---
 
 ## Error Recovery
 
 \`\`\`python
 import anyio
-from claude_agent_sdk import query, ClaudeAgentOptions, CLINotFoundError, CLIConnectionError, ProcessError, ResultMessage
+from claude_agent_sdk import (
+    query,
+    ClaudeAgentOptions,
+    CLINotFoundError,
+    CLIConnectionError,
+    ProcessError,
+    ResultMessage,
+)
 
 async def run_with_recovery():
     try:
         async for message in query(
-            prompt="Fix tests",
-            options=ClaudeAgentOptions(allowed_tools=["Read", "Edit", "Bash"], max_turns=10)
+            prompt="Fix the failing tests",
+            options=ClaudeAgentOptions(
+                allowed_tools=["Read", "Edit", "Bash"],
+                max_turns=10
+            )
         ):
-            if isinstance(message, ResultMessage): print(message.result)
-    except CLINotFoundError: print("CLI not found")
-    except CLIConnectionError as e: print(f"Connection error: {e}")
-    except ProcessError as e: print(f"Process error: {e}")
+            if isinstance(message, ResultMessage):
+                print(message.result)
+    except CLINotFoundError:
+        print("Claude Code CLI not found. Install with: pip install claude-agent-sdk")
+    except CLIConnectionError as e:
+        print(f"Connection error: {e}")
+    except ProcessError as e:
+        print(f"Process error: {e}")
 
 anyio.run(run_with_recovery)
 \`\`\`
+
+---
 
 ## Session Resumption
 
@@ -174,35 +277,90 @@ from claude_agent_sdk import query, ClaudeAgentOptions, ResultMessage, SystemMes
 
 async def main():
     session_id = None
-    async for message in query(prompt="Read auth module", options=ClaudeAgentOptions(allowed_tools=["Read", "Glob"])):
-        if isinstance(message, SystemMessage) and message.subtype == "init": session_id = message.session_id
 
-    async for message in query(prompt="Find callers", options=ClaudeAgentOptions(resume=session_id)):
-        if isinstance(message, ResultMessage): print(message.result)
+    # First query: capture the session ID
+    async for message in query(
+        prompt="Read the authentication module",
+        options=ClaudeAgentOptions(allowed_tools=["Read", "Glob"])
+    ):
+        if isinstance(message, SystemMessage) and message.subtype == "init":
+            session_id = message.data.get("session_id")
+
+    # Resume with full context from the first query
+    async for message in query(
+        prompt="Now find all places that call it",  # "it" = auth module
+        options=ClaudeAgentOptions(resume=session_id)
+    ):
+        if isinstance(message, ResultMessage):
+            print(message.result)
 
 anyio.run(main)
 \`\`\`
+
+---
 
 ## Session History
 
 \`\`\`python
-import anyio
 from claude_agent_sdk import list_sessions, get_session_messages
 
-async def main():
-    sessions = await list_sessions()
-    if sessions:
-        messages = await get_session_messages(session_id=sessions[0].session_id)
-        for msg in messages: print(msg)
+# List past sessions (sync function — no await)
+sessions = list_sessions()
+for session in sessions:
+    print(f"Session {session.session_id} in {session.cwd}")
 
-anyio.run(main)
+# Retrieve messages from the most recent session (sync function — no await)
+if sessions:
+    messages = get_session_messages(session_id=sessions[0].session_id)
+    for msg in messages:
+        print(msg)
 \`\`\`
+
+---
+
+## Session Mutations
+
+\`\`\`python
+from claude_agent_sdk import rename_session, tag_session
+
+session_id = "your-session-id"
+
+# Rename a session
+rename_session(session_id=session_id, title="Refactoring auth module")
+
+# Tag a session for filtering
+tag_session(session_id=session_id, tag="experiment-v2")
+
+# Clear a tag
+tag_session(session_id=session_id, tag=None)
+
+# Scope to a specific project directory
+rename_session(session_id=session_id, title="New title", directory="/path/to/project")
+\`\`\`
+
+---
 
 ## Custom System Prompt
 
 \`\`\`python
+import anyio
+from claude_agent_sdk import query, ClaudeAgentOptions, ResultMessage
+
+async def main():
+    async for message in query(
+        prompt="Review this code",
         options=ClaudeAgentOptions(
             allowed_tools=["Read", "Glob", "Grep"],
-            system_prompt="You are a senior code reviewer..."
+            system_prompt="""You are a senior code reviewer focused on:
+1. Security vulnerabilities
+2. Performance issues
+3. Code maintainability
+
+Always provide specific line numbers and suggestions for improvement."""
         )
+    ):
+        if isinstance(message, ResultMessage):
+            print(message.result)
+
+anyio.run(main)
 \`\`\`

@@ -5,4 +5,4 @@ ccVersion: 2.1.53
 variables:
   - BASH_TOOL_NAME
 -->
-Chain dependent commands with \`&&\`.
+If the commands depend on each other and must run sequentially, use a single ${BASH_TOOL_NAME} call with '&&' to chain them together.

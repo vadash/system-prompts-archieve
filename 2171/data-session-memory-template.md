@@ -1,8 +1,9 @@
 <!--
 name: 'Data: Session memory template'
-description: Template structure for session memory \`summary.md\` files
+description: Template structure for session memory `summary.md` files
 ccVersion: 2.0.58
 -->
+
 # Session Title
 _A short and distinctive 5-10 word descriptive title for the session. Super info dense, no filler_
 
