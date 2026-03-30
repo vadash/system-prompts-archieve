@@ -5,3 +5,4 @@ description: >-
   updates CLAUDE.local.md with recurring patterns and learnings
 ccVersion: 2.1.3
 -->
+
